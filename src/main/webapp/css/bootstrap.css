@@ -1124,6 +1124,33 @@ img {
   max-width: 100%;
   height: auto;
 }
+/* thumbnail1 img 추가*/
+img {
+  vertical-align: middle;
+}
+.img-responsive,
+.thumbnail1 > img,
+.thumbnail1 a > img,
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.img-thumbnail1 {
+  padding: 4px;
+  line-height: 1.42857143;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
+}
+/* thumbnail img */
 .img-rounded {
   border-radius: 6px;
 }
@@ -5050,6 +5077,48 @@ a.badge:focus {
 .jumbotron > hr {
   border-top-color: #d5d5d5;
 }
+/*점보트론 흰배경 추가  */
+.jumbotron1 {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+  color: inherit;
+  background-color: white;
+}
+.jumbotron1 h1,
+.jumbotron1 .h1 {
+  color: inherit;
+}
+.jumbotron1 p {
+  margin-bottom: 15px;
+  font-size: 21px;
+  font-weight: 200;
+}
+.jumbotron1 > hr {
+  border-top-color: #d5d5d5;
+}
+/* 추가 끝 */
+/*점보트론 검은배경 추가  */
+.jumbotron2 {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+  color: inherit;
+  background-color: #bbbbbb;
+}
+.jumbotron2 h2,
+.jumbotron2 .h2 {
+  color: inherit;
+}
+.jumbotron2 p {
+  margin-bottom: 15px;
+  font-size: 21px;
+  font-weight: 200;
+}
+.jumbotron2 > hr {
+  border-top-color: #d5d5d5;
+}
+/* 추가 끝 */
 .container .jumbotron,
 .container-fluid .jumbotron {
   padding-right: 15px;
@@ -5074,6 +5143,68 @@ a.badge:focus {
     font-size: 63px;
   }
 }
+/* thumbnail1 추가  */
+
+.thumbnail1 {
+  display: block;
+  padding: 4px;
+  margin-bottom: 20px;
+  line-height: 1.42857143;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  -webkit-transition: border 0.2s ease-in-out;
+  -o-transition: border 0.2s ease-in-out;
+  transition: border 0.2s ease-in-out;
+}
+
+.thumbnail1 > img,
+.thumbnail1 a > img {
+  margin-right: auto;
+  margin-left: auto;
+}
+a.thumbnail1:hover,
+a.thumbnail1:focus,
+a.thumbnail1.active {
+  border-color: #337ab7;
+}
+.thumbnail1 .caption {
+  padding: 9px;
+  color: #333333;
+}
+/* thumbnail1 end */
+
+/* thumbnail2 추가  */
+
+.thumbnail2 {
+  display: block;
+  padding: 4px;
+  margin-bottom: 20px;
+  line-height: 1.42857143;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  -webkit-transition: border 0.2s ease-in-out;
+  -o-transition: border 0.2s ease-in-out;
+  transition: border 0.2s ease-in-out;
+}
+
+.thumbnail2 > img,
+.thumbnail2 a > img {
+  margin-right: auto;
+  margin-left: auto;
+}
+a.thumbnail2:hover,
+a.thumbnail2:focus,
+a.thumbnail2.active {
+  border-color: #337ab7;
+}
+.thumbnail2 .caption {
+  padding: 9px;
+  color: #333333;
+}
+/* thumbnail1 end */
+
 .thumbnail {
   display: block;
   padding: 4px;
@@ -5086,6 +5217,7 @@ a.badge:focus {
   -o-transition: border 0.2s ease-in-out;
   transition: border 0.2s ease-in-out;
 }
+
 .thumbnail > img,
 .thumbnail a > img {
   margin-right: auto;

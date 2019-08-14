@@ -6,9 +6,28 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css" />
+<link rel="stylesheet" type="text/css" href="css/buttons.css" />
 <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 
+<link href="http://vjs.zencdn.net/5.4.4/video-js.css" rel="stylesheet">
+<script src="http://vjs.zencdn.net/5.4.4/video.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#signT').click(function() {
+			$('#myModal').modal("hide");
+		});
+	});
+
+	$('#myModal').on('shown.bs.modal', function() {
+		$('#myInput').focus();
+	})
+
+	$('#signUp').on('shown.bs.modal', function() {
+		$('#myInput').focus();
+	})
+</script>
 <style type="text/css">
 #videobg>video {
 	min-width: 100%;
@@ -46,13 +65,156 @@
 .carousel-inner img {
 	width: 100%;
 }
+
+.hr1 {
+	height: 4px;
+}
+
+#hrText {
+	line-height: 50px;
+	font-weight: bold;
+	font-size: 15px;
+	text-align: center;
+}
+
+#btn-detail {
+	margin-left: 18%;
+	margin-right: 60%;
+}
 </style>
 <title>T singer</title>
 </head>
 <body>
-	<div id="videobg">
-		<video id="video" preload="auto" autoplay="autoplay" loop="loop"
-			muted="muted">
+
+	<!--Login Modal 111111111111111111111111-->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<!-- header -->
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Login</h4>
+				</div>
+				<!--login content -->
+				<form class="form-horizontal">
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="sub" class="col-sm-2 control-label">ID</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="id" id="id"
+									placeholder="Enter ID">
+							</div>
+						</div>
+						<label></label>
+						<div class="form-group">
+							<label for="sub" class="col-sm-2 control-label">PW</label>
+							<div class="col-sm-10">
+								<input type="password" class="form-control" name="pw" id="pw"
+									placeholder="Enter PassWord">
+							</div>
+						</div>
+						<label></label>
+					</div>
+				</form>
+				<!--login footer -->
+				<div class="modal-footer">
+					<div class="col-sm-6 text-left">
+						<a href="#" class="">아이디 찾기</a> <a href="#" class="">비밀번호 찾기</a>
+					</div>
+					<div class="col-sm-6 text-right">
+						<button type="button" class="btn btn-default" data-dismiss="modal"
+							onclick="Login();">Sign In</button>
+						<button id="signT" type="button" class="btn btn-primary"
+							data-toggle="modal" data-target="#signUp">Sign Up</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--Sign UP Modal 22222222222222222222222222-->
+	<div class="modal fade" id="signUp" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<!-- header -->
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Sign Up</h4>
+				</div>
+				<!-- sign up content -->
+				<form class="form-horizontal">
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="sub" class="col-sm-2 control-label">이름</label>
+							<div class="col-sm-7">
+								<input type="text" class="form-control" name="name" id="name"
+									placeholder="Enter Name">
+							</div>
+						</div>
+						<label></label>
+						<div class="form-group">
+							<label for="sub" class="col-sm-2 control-label">ID</label>
+							<div class="col-sm-7">
+								<input type="text" class="form-control" name="id" id="id"
+									placeholder="Enter ID">
+							</div>
+							<div class="col-sm-2">
+								<button class="btn btn-default">ID확인</button>
+							</div>
+						</div>
+						<label></label>
+
+						<div class="form-group">
+							<label for="sub" class="col-sm-2 control-label">PW</label>
+							<div class="col-sm-7">
+								<input type="password" class="form-control" name="pw" id="pw"
+									placeholder="Enter PassWord">
+							</div>
+						</div>
+						<label></label>
+						<div class="form-group">
+							<label for="sub" class="col-sm-2 control-label">PW 확인</label>
+							<div class="col-sm-7">
+								<input type="password" class="form-control" name="pwck"
+									id="pwck" placeholder="Check PassWord">
+							</div>
+						</div>
+						<label></label>
+						<div class="form-group">
+							<label for="sub" class="col-sm-2 control-label">Email</label>
+							<div class="col-sm-7">
+								<input type="email" class="form-control" name="email" id="email"
+									placeholder="example@naver.com">
+							</div>
+							<div class="col-sm-2">
+								<button class="btn btn-default">메일인증</button>
+							</div>
+						</div>
+						<label></label>
+					</div>
+				</form>
+				<!--sign up footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal"">Cancle</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="signUp();">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="videobg" weight="100%">
+		<video id="video" class="video-js vjs-default-skin"
+			controls="controls" preload="auto" autoplay="autoplay" loop="loop"
+			muted="muted" data-setup='{"fluid": true}'>
 			<source src="video/main.mp4" type="video/mp4">
 		</video>
 	</div>
@@ -87,7 +249,8 @@
 								<li><a class="edit" href="#">COMMUNITY</a></li>
 							</ul>
 							<ul class="nav navbar-nav navbar-right">
-								<li><a class="edit" href="#">로그인/회원가입</a></li>
+								<li><a id="login" class="edit" href="#" data-toggle="modal"
+									data-target="#myModal">로그인/회원가입</a></li>
 							</ul>
 						</div>
 						<!-- /.navbar-collapse -->
@@ -98,66 +261,261 @@
 			</div>
 		</div>
 		<div id="box"></div>
-		<div class="row">
 
-			<div class="col-md-4">
-				<div id="carousel-example-generic1" class="carousel slide"
-					data-ride="carousel">
-					<!-- Indicators -->
-					<ol class="carousel-indicators">
-						<li data-target="#carousel-example-generic1" data-slide-to="0"
-							class="active"></li>
-						<li data-target="#carousel-example-generic1" data-slide-to="1"></li>
-						<li data-target="#carousel-example-generic1" data-slide-to="2"></li>
-					</ol>
+		<!--추천 container -->
+		<div class="container">
+			<div class="jumbotron1">
+				<h1 align="center">Hello, world!</h1>
+				<p align="center">Seattle is an exciting urban city surrounded
+					by unmatched natural beauty. Adventure awaits you.</p>
+				<br>
+				<div class="row">
+					<div class="col-md-8">
+						<div id="carousel-example-generic1" class="carousel slide"
+							data-ride="carousel">
+							<!-- Indicators -->
+							<ol class="carousel-indicators">
+								<li data-target="#carousel-example-generic1" data-slide-to="0"
+									class="active"></li>
+								<li data-target="#carousel-example-generic1" data-slide-to="1"></li>
+								<li data-target="#carousel-example-generic1" data-slide-to="2"></li>
+							</ol>
 
-					<!-- Wrapper for slides -->
-					<div class="carousel-inner" role="listbox">
-						<div class="item active">
-							<img src="imgs/b01.jpg" alt="...">
-						</div>
-						<div class="item">
-							<img src="imgs/b02.jpg" alt="...">
-						</div>
-						<div class="item">
-							<img src="imgs/b03.jpg" alt="...">
+							<!-- Wrapper for slides -->
+							<div class="carousel-inner" role="listbox">
+								<div class="item active">
+									<img src="imgs/a1.jpg" alt="...">
+								</div>
+								<div class="item">
+									<img src="imgs/a2.jpg" alt="...">
+								</div>
+								<div class="item">
+									<img src="imgs/a3.jpg" alt="...">
+								</div>
+							</div>
+							<b>hello java</b> "you can see the landScape"
 						</div>
 					</div>
+					<div class="col-md-4">
+						<div id="carousel-example-generic2" class="carousel slide"
+							data-ride="carousel">
+							<!-- Indicators -->
+							<ol class="carousel-indicators">
+								<li data-target="#carousel-example-generic2" data-slide-to="0"
+									class="active"></li>
+								<li data-target="#carousel-example-generic2" data-slide-to="1"></li>
+								<li data-target="#carousel-example-generic2" data-slide-to="2"></li>
+							</ol>
 
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div id="carousel-example-generic2" class="carousel slide"
-					data-ride="carousel">
-					<!-- Indicators -->
-					<ol class="carousel-indicators">
-						<li data-target="#carousel-example-generic2" data-slide-to="0"
-							class="active"></li>
-						<li data-target="#carousel-example-generic2" data-slide-to="1"></li>
-						<li data-target="#carousel-example-generic2" data-slide-to="2"></li>
-					</ol>
+							<!-- Wrapper for slides -->
+							<div class="carousel-inner" role="listbox">
+								<div class="item active">
+									<img src="imgs/a1.jpg" alt="...">
+								</div>
+								<div class="item">
+									<img src="imgs/a2.jpg" alt="...">
+								</div>
+								<div class="item">
+									<img src="imgs/a3.jpg" alt="...">
+								</div>
+							</div>
 
-					<!-- Wrapper for slides -->
-					<div class="carousel-inner" role="listbox">
-						<div class="item active">
-							<img src="imgs/b01.jpg" alt="...">
 						</div>
-						<div class="item">
-							<img src="imgs/b02.jpg" alt="...">
-						</div>
-						<div class="item">
-							<img src="imgs/b03.jpg" alt="...">
+						<b>hello java</b> "you can see the landScape"
+					</div>
+					<div class="col-md-4">
+						<div id="carousel-example-generic3" class="carousel slide"
+							data-ride="carousel">
+							<!-- Indicators -->
+							<ol class="carousel-indicators">
+								<li data-target="#carousel-example-generic2" data-slide-to="0"
+									class="active"></li>
+								<li data-target="#carousel-example-generic2" data-slide-to="1"></li>
+								<li data-target="#carousel-example-generic2" data-slide-to="2"></li>
+							</ol>
+
+							<!-- Wrapper for slides -->
+							<div class="carousel-inner" role="listbox">
+								<div class="item active">
+									<a href="#" class="thumbnail"><img src="imgs/a1.jpg"
+										alt="..."></a>
+								</div>
+								<div class="item">
+									<a href="#" class="thumbnail"><img src="imgs/a2.jpg"
+										alt="..."></a>
+								</div>
+								<div class="item">
+									<a href="#" class="thumbnail"><img src="imgs/a3.jpg"
+										alt="..."></a>
+								</div>
+							</div>
+							<b>hello java</b> "you can see the landScape"
 						</div>
 					</div>
-
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="jumbotron">
-					<div class="container">공지사항</div>
 				</div>
 			</div>
 		</div>
+		<!-- 추천 container end -->
+
+		<!-- extra container -->
+		<div class="container">
+			<div class="jumbotron1">
+				<div class="row">
+					<h3>Another Plan!</h3>
+					<br> <br>
+					<div class="col-xs-6 col-md-3">
+						<a href="#" class="thumbnail1"> <img src="imgs/b1.jpg"
+							alt="..."></a>
+						<h4>Food</h4>
+					</div>
+					<div class="col-xs-6 col-md-3">
+						<a href="#" class="thumbnail1"> <img src="imgs/b2.jpg"
+							alt="..."></a>
+						<h4>Transportation</h4>
+					</div>
+					<div class="col-xs-6 col-md-3">
+						<a href="#" class="thumbnail1"> <img src="imgs/b3.jpg"
+							alt="..."></a>
+						<h4>Hotels</h4>
+					</div>
+					<div class="col-xs-6 col-md-3">
+
+						<a href="#" class="thumbnail1"> <img src="imgs/b4.jpg"
+							alt="..."></a>
+						<h4>Festival</h4>
+					</div>
+				</div>
+				<br> <br> <br>
+				<div class="row">
+					<div class="col-md-4"></div>
+					<div class="col-md-4">
+						<h2 align="center">Variety of Plans</h2>
+						<p align="center">Find a variety of lodgings, festivals, and
+							food.</p>
+						<button id="btn-detail"
+							class="button button--rayen button--border-thin button--text-thick button--text-upper button--size-s"
+							data-text="details →">
+							<span>details →</span>
+						</button>
+					</div>
+					<div class="col-md-4"></div>
+				</div>
+
+			</div>
+		</div>
+
+		<!-- 할것 container -->
+		<div class="container">
+			<div class="jumbotron1">
+				<!-- 축제 수평선 -->
+				<div class="row">
+					<div class="row">
+						<div class="col-md-5">
+							<hr color="darkgray" class="hr1">
+						</div>
+						<div class="col-md-2">
+							<p id="hrText">Upcoming Spotlight</p>
+						</div>
+						<div class="col-md-5">
+							<hr color="darkgray" class="hr1">
+						</div>
+					</div>
+				</div>
+				<h3>Thing to Do</h3>
+				<h1></h1>
+				<div class="row">
+					<div class="col-xs-6 col-md-3">
+						<a href="#" class="thumbnail"> <img src="imgs/a4.jpg"
+							alt="...">
+						</a>
+						<div class="caption">
+							<h3>Thumbnail label</h3>
+							<p>...</p>
+							<p>
+								<a href="#" class="btn btn-primary" role="button">Button</a> <a
+									href="#" class="btn btn-default" role="button">Button</a>
+							</p>
+						</div>
+					</div>
+					<div class="col-xs-6 col-md-3">
+						<a href="#" class="thumbnail"> <img src="imgs/a5.jpg"
+							alt="...">
+						</a>
+						<div class="caption">
+							<h3>Thumbnail label</h3>
+							<p>...</p>
+							<p>
+								<a href="#" class="btn btn-primary" role="button">Button</a> <a
+									href="#" class="btn btn-default" role="button">Button</a>
+							</p>
+						</div>
+					</div>
+					<div class="col-xs-6 col-md-3">
+						<a href="#" class="thumbnail"> <img src="imgs/a6.jpg"
+							alt="...">
+						</a>
+						<div class="caption">
+							<h3>Thumbnail label</h3>
+							<p>...</p>
+							<p>
+								<a href="#" class="btn btn-primary" role="button">Button</a> <a
+									href="#" class="btn btn-default" role="button">Button</a>
+							</p>
+						</div>
+					</div>
+					<div class="col-xs-6 col-md-3">
+						<a href="#" class="thumbnail"> <img src="imgs/a7.jpg"
+							alt="...">
+						</a>
+						<div class="caption">
+							<h3>Thumbnail label</h3>
+							<p>...</p>
+							<p>
+								<a href="#" class="btn btn-primary" role="button">Button</a> <a
+									href="#" class="btn btn-default" role="button">Button</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 할것 container end -->
 	</div>
+
+	<div class="jumbotron2">
+		<div class="container">
+			<div id="footer">
+				<div class="row">
+					<div class="col-md-4" align="center">
+						<div><a>guides</a></div><br>
+						<div><a>찾아오는 길</a></div><br>
+						<div><a>careers</a></div><br>
+						<div><a>회사 약력</a></div><br>
+					</div>
+					<div class="col-md-4" align="center">
+						<a href="mailto:bit01class@gmail.com">관리자에게 문의</a>
+					</div>
+					<div class="col-md-4">
+						<a href="mailto:bit01class@gmail.com">관리자에게 문의</a>
+					</div>
+				</div>
+				
+				<hr>
+				
+				<address>
+					<div class="col-md-6">
+					<strong>(주)비트컴퓨터</strong><br><span>비트캠프 서울시 서초구 강남대로 459 (서초동,백암빌딩)</span>
+					</div>
+					<div class="col-md-6">
+					<strong>연락처</strong><br><span>02-3486-9600</span>
+					</div>
+					<div class="col-md-12">
+					<strong>Copyright &copy; 비트캠프 All rights reserved.</strong><br>
+					</div>
+				</address>
+			</div>
+		</div>
+	</div>
+
 </body>
 </html>

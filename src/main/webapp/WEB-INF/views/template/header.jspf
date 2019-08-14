@@ -34,7 +34,7 @@
 									<li><a class="edit" href="#">COMMUNITY</a></li>
 								</ul>
 								<ul class="nav navbar-nav navbar-right">
-									<li><a class="edit" href="#">로그인/회원가입</a></li>
+									<li><a class="edit" href="#" data-toggle="modal" data-target="#myModal">로그인/회원가입</a></li>
 								</ul>
 
 

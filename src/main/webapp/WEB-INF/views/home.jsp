@@ -1,18 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport"
+	content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width" />
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css" />
 <link rel="stylesheet" type="text/css" href="css/buttons.css" />
 <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
+<!-- font -->
+<link
+	href="https://fonts.googleapis.com/css?family=Lobster&display=swap"
+	rel="stylesheet">
 
+
+<!-- kakaotalk library -->
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <link href="http://vjs.zencdn.net/5.4.4/video-js.css" rel="stylesheet">
 <script src="http://vjs.zencdn.net/5.4.4/video.js"></script>
 
+<!-- 회원가입 / 로그인 모달 -->
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#signT').click(function() {
@@ -81,6 +93,25 @@
 	margin-left: 18%;
 	margin-right: 60%;
 }
+
+#fontTitle {
+	font-family: 'Lobster', cursive;
+	font-size: 20px;
+}
+
+.icon {
+	height: 20px;
+	opacity: 0.5;
+	align: left;
+}
+
+.iconT {
+	font-size: 10px;
+	height: 20px;
+	opacity: 0.5;
+	line-height: 20px;
+	text-align: center;
+}
 </style>
 <title>T singer</title>
 </head>
@@ -102,6 +133,91 @@
 				<!--login content -->
 				<form class="form-horizontal">
 					<div class="modal-body">
+					
+					<!-- 카카오톡 로그인 -->
+						<div class="form-group">
+				   		
+					   		<a id="kakao-login-btn"></a>
+					   		<a href="http://developers.kakao.com/logout"></a>
+					   		<script type='text/javascript'>
+							  //<![CDATA[
+							    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+							    Kakao.init('5a7696cd70ea487363a3ddebcb028ae1');
+							    // 카카오 로그인 버튼을 생성합니다.
+							    Kakao.Auth.createLoginButton({
+							      container: '#kakao-login-btn',
+							      success: function(authObj) {
+							        // 로그인 성공시, API를 호출합니다.
+							        Kakao.API.request({
+							          url: '/v2/user/me',
+							          success: function(res) {
+							            console.log(JSON.stringify(res));
+							          },
+							          fail: function(error) {
+							            alert(JSON.stringify(error));
+							          }
+							        });
+							      },
+							      fail: function(err) {
+							        alert(JSON.stringify(err));
+							      }
+							    });
+							  //]]>
+	
+							    function kout(){
+							    	alert("script");
+							    	Kakao.Auth.logout(function(data){
+							                alert(data);
+							            });
+							    }
+							</script>
+					   		<a href = "https://kauth.kakao.com/oauth/authorize?client_id=cf59d8cf164537ca58f158a8dcd3c7f4&redirect_uri=http://192.168.1.8:8080/tsigner/oauth&response_type=code">
+						        로그인
+						    </a>
+					  </div>
+					
+						<!-- 페이스북 -->
+						<div class="form-group">
+							<div id="fb-root"></div>
+							<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v4.0&appId=417177695583034&autoLogAppEvents=1"></script>
+							<div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with" data-auto-logout-link="false" data-use-continue-as="false"></div>
+							<script>
+							  window.fbAsyncInit = function() {
+							    FB.init({
+							      appId      : '{your-app-id}',
+							      cookie     : true,
+							      xfbml      : true,
+							      version    : '{api-version}'
+							    });
+							      
+							    FB.AppEvents.logPageView();   
+							      
+							  };
+							
+							  (function(d, s, id){
+							     var js, fjs = d.getElementsByTagName(s)[0];
+							     if (d.getElementById(id)) {return;}
+							     js = d.createElement(s); js.id = id;
+							     js.src = "https://connect.facebook.net/en_US/sdk.js";
+							     fjs.parentNode.insertBefore(js, fjs);
+							   }(document, 'script', 'facebook-jssdk'));
+							</script>
+							
+						</div>
+					
+						<div class="form-group">
+							<c:choose>
+								<c:when test="${sessionId != null}">
+								</c:when>
+									<c:otherwise>
+										<!-- 네이버 로그인 창으로 이동 -->
+										<div id="naver_id_login" style="text-align:center"><a href="${url}">
+											<img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a></div>
+									</c:otherwise>
+								</c:choose>
+
+						</div>
+					
 						<div class="form-group">
 							<label for="sub" class="col-sm-2 control-label">ID</label>
 							<div class="col-sm-10">
@@ -236,7 +352,8 @@
 									class="icon-bar"></span> <span class="icon-bar"></span> <span
 									class="icon-bar"></span>
 							</button>
-							<a class="navbar-brand edit" href="<%=root%>">T signer</a>
+							<a id="fontTitle" class="navbar-brand edit" href="<%=root%>">T
+								signer</a>
 						</div>
 
 						<div class="collapse navbar-collapse"
@@ -250,7 +367,9 @@
 							</ul>
 							<ul class="nav navbar-nav navbar-right">
 								<li><a id="login" class="edit" href="#" data-toggle="modal"
-									data-target="#myModal">로그인/회원가입</a></li>
+									data-target="#myModal">로그인</a></li>
+								<li><a id="join" class="edit" href="#" data-toggle="modal"
+									data-target="#myModal">로그인</a></li>
 							</ul>
 						</div>
 						<!-- /.navbar-collapse -->
@@ -483,38 +602,8 @@
 	</div>
 
 	<div class="jumbotron2">
-		<div class="container">
-			<div id="footer">
-				<div class="row">
-					<div class="col-md-4" align="center">
-						<div><a>guides</a></div><br>
-						<div><a>찾아오는 길</a></div><br>
-						<div><a>careers</a></div><br>
-						<div><a>회사 약력</a></div><br>
-					</div>
-					<div class="col-md-4" align="center">
-						<a href="mailto:bit01class@gmail.com">관리자에게 문의</a>
-					</div>
-					<div class="col-md-4">
-						<a href="mailto:bit01class@gmail.com">관리자에게 문의</a>
-					</div>
-				</div>
-				
-				<hr>
-				
-				<address>
-					<div class="col-md-6">
-					<strong>(주)비트컴퓨터</strong><br><span>비트캠프 서울시 서초구 강남대로 459 (서초동,백암빌딩)</span>
-					</div>
-					<div class="col-md-6">
-					<strong>연락처</strong><br><span>02-3486-9600</span>
-					</div>
-					<div class="col-md-12">
-					<strong>Copyright &copy; 비트캠프 All rights reserved.</strong><br>
-					</div>
-				</address>
-			</div>
-		</div>
+		<%@ include file="template/footer.jsp"%>
+		
 	</div>
 
 </body>

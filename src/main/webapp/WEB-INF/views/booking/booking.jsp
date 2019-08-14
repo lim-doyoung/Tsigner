@@ -7,6 +7,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- font -->
+<link
+	href="https://fonts.googleapis.com/css?family=Lobster&display=swap"
+	rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css" />
 <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
@@ -152,7 +156,9 @@ td>a {
 	</div>
 	<!-- 여기까지 컨텐츠입니다 -->
 
-	<jsp:include page="../template/footer.jsp"></jsp:include>
+	<div class="jumbotron2">
+		<%@ include file="../template/footer.jsp"%>
+	</div>
 
 
 </body>

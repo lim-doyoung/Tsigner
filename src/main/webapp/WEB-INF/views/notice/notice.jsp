@@ -37,9 +37,9 @@
 		</div>
 	</div>
 	<!-- 여기까지 컨텐츠입니다 -->
-
-	<jsp:include page="../template/footer.jsp"></jsp:include>
-
+<div class="jumbotron2">
+		<%@ include file="../template/footer.jsp"%>
+	</div>
 
 </body>
 </html>

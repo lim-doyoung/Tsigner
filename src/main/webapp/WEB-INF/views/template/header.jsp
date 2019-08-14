@@ -85,7 +85,13 @@ html, body, header, .view {
 								id="bs-example-navbar-collapse-1">
 
 								<ul class="nav navbar-nav">
-									<li><a class="edit" href="<%=root%>/notice">NOTICE</a></li>
+									<li><a class="edit" href="<%=root%>/notice">NOTICE</a>
+										<ul>
+											<li>1</li>
+											<li>2</li>
+											<li>3</li>
+										</ul>
+									</li>
 									<li><a class="edit" href="<%=root%>/planner">PLANER</a></li>
 									<li><a class="edit" href="<%=root%>/booking">BOOKING</a></li>
 									<li><a class="edit" href="<%=root%>/community">COMMUNITY</a></li>

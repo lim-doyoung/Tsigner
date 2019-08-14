@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class PlanerController {
 	
-	@GetMapping(value = "/planer")
+	@GetMapping(value = "/planner")
 	public String planer() {
 		
-		return "planer";
+		return "planner/planner";
 	}
 }

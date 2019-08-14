@@ -7,6 +7,7 @@
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="css/mdb.css" />
 <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css" />
+<link rel="stylesheet" type="text/css" href="css/tsigner.css" />
 <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 
@@ -76,7 +77,7 @@ html, body, header, .view {
 										class="icon-bar"></span> <span class="icon-bar"></span> <span
 										class="icon-bar"></span>
 								</button>
-								<a class="navbar-brand" href="<%=root%>/">T signer</a>
+								<a id="fontTitle" class="navbar-brand" href="<%=root%>/">T Signer</a>
 							</div>
 
 							<!-- Collect the nav links, forms, and other content for toggling -->
@@ -84,9 +85,8 @@ html, body, header, .view {
 								id="bs-example-navbar-collapse-1">
 
 								<ul class="nav navbar-nav">
-									<li><a class="edit" href="<%=root%>/">HOME</a></li>
 									<li><a class="edit" href="<%=root%>/notice">NOTICE</a></li>
-									<li><a class="edit" href="<%=root%>/planer">PLANER</a></li>
+									<li><a class="edit" href="<%=root%>/planner">PLANER</a></li>
 									<li><a class="edit" href="<%=root%>/booking">BOOKING</a></li>
 									<li><a class="edit" href="<%=root%>/community">COMMUNITY</a></li>
 								</ul>

@@ -41,6 +41,9 @@ td>a {
 	<!-- 여기서부터 컨텐츠입니다 -->
 	<div id="content">
 		<div class="row">
+		<div class="jumbtron1">
+		
+		</div>
 			<div class="col-md-12">
 
 				<!-- 컨텐츠의 내용을 입력하세요 -->

@@ -1,0 +1,18 @@
+#fontTitle {
+	font-family: 'Lobster', cursive;
+	font-size: 20px;
+}
+
+.icon {
+	height: 20px;
+	opacity: 0.5;
+	align: left;
+}
+
+.iconT {
+	font-size: 10px;
+	height: 20px;
+	opacity: 0.5;
+	line-height: 20px;
+	text-align: center;
+}

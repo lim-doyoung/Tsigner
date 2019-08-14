@@ -10,6 +10,6 @@ public class CommunityController {
 	@GetMapping(value = "/community")
 	public String community() {
 		
-		return "community";
+		return "community/community";
 	}
 }

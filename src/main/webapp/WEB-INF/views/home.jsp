@@ -11,6 +11,7 @@
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css" />
 <link rel="stylesheet" type="text/css" href="css/buttons.css" />
+<link rel="stylesheet" type="text/css" href="css/tsigner.css" />
 <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <!-- font -->
@@ -94,24 +95,6 @@
 	margin-right: 60%;
 }
 
-#fontTitle {
-	font-family: 'Lobster', cursive;
-	font-size: 20px;
-}
-
-.icon {
-	height: 20px;
-	opacity: 0.5;
-	align: left;
-}
-
-.iconT {
-	font-size: 10px;
-	height: 20px;
-	opacity: 0.5;
-	line-height: 20px;
-	text-align: center;
-}
 </style>
 <title>T singer</title>
 </head>
@@ -359,11 +342,10 @@
 						<div class="collapse navbar-collapse"
 							id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav">
-								<li><a class="edit" href="<%=root%>/pay">HOME</a></li>
-								<li><a class="edit" href="#">NOTICE</a></li>
-								<li><a class="edit" href="#">PLANER</a></li>
+								<li><a class="edit" href="<%=root%>/notice">NOTICE</a></li>
+								<li><a class="edit" href="<%=root%>/planner">PLANER</a></li>
 								<li><a class="edit" href="<%=root%>/booking">BOOKING</a></li>
-								<li><a class="edit" href="#">COMMUNITY</a></li>
+								<li><a class="edit" href="<%=root%>/community">COMMUNITY</a></li>
 							</ul>
 							<ul class="nav navbar-nav navbar-right">
 								<li><a id="login" class="edit" href="#" data-toggle="modal"

@@ -17,35 +17,8 @@ public class NoticeController {
 	@GetMapping(value = "/notice")
 	public String notice(Model model) throws IOException {
 
-		String result="";
-		BufferedReader br = null;
-		try{            
-			String urlstr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchStay?serviceKey="
-					+ "KfXhi9dUVMlKuLkdbJrb%2FOISpQpVlvqXua7%2Bkh9LFQJgEhhIjL8WTssH37md%2FTG6jLMlogG5FP3HzDqiHSXK6w%3D%3D"
-					+ "&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&arrange=A&listYN=Y&_type=json";
-			URL url = new URL(urlstr);
-			HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
-			urlconnection.setRequestMethod("GET");
-			br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(),"UTF-8"));
-			String line;
-			while((line = br.readLine()) != null) {
-				result = result + line + "\n";
-			}
-			System.out.println(result);
-		}catch(Exception e){
-			System.out.println(e.getMessage());
-		}
 
-
-		String data = result;
-		System.out.println(data);
-
-		JSONObject json = new JSONObject();
-		json.put("data", data);
-
-		model.addAttribute("json", json);
-
-		return "notice";
+		return "notice/notice";
 	}
 
 

@@ -4,6 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- font -->
+<link
+	href="https://fonts.googleapis.com/css?family=Lobster&display=swap"
+	rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css" />
 <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
@@ -16,7 +20,7 @@
 </head>
 <body>
 
-	<jsp:include page="template/header.jsp"></jsp:include>
+	<jsp:include page="../template/header.jsp"></jsp:include>
 
 	<!-- 여기서부터 컨텐츠입니다 -->
 	<div id="content">
@@ -25,7 +29,7 @@
 
 				<!-- 컨텐츠의 내용을 입력하세요 -->
 				<div class="col-md-offset-2 col-md-8">
-					<h1>커뮤니티</h1>
+					<h1>planner</h1>
 
 				</div>
 			</div>
@@ -33,7 +37,7 @@
 	</div>
 	<!-- 여기까지 컨텐츠입니다 -->
 
-	<jsp:include page="template/footer.jsp"></jsp:include>
+	<jsp:include page="../template/footer.jsp"></jsp:include>
 
 
 </body>

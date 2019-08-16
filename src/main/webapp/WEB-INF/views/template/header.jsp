@@ -10,6 +10,18 @@
 <link rel="stylesheet" type="text/css" href="css/tsigner.css" />
 <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
 	function myModal() {
@@ -35,9 +47,10 @@
 	}
 </script>
 <style type="text/css">
-#header{
+#header {
 	margin-bottom: -20px;
 }
+
 .intro-2 {
 	background:
 		url("https://mdbootstrap.com/img/Photos/Others/img (50).jpg")
@@ -77,7 +90,8 @@ html, body, header, .view {
 										class="icon-bar"></span> <span class="icon-bar"></span> <span
 										class="icon-bar"></span>
 								</button>
-								<a id="fontTitle" class="navbar-brand" href="<%=root%>/">T Signer</a>
+								<a id="fontTitle" class="navbar-brand" href="<%=root%>/">T
+									Signer</a>
 							</div>
 
 							<!-- Collect the nav links, forms, and other content for toggling -->
@@ -85,16 +99,20 @@ html, body, header, .view {
 								id="bs-example-navbar-collapse-1">
 
 								<ul class="nav navbar-nav">
-									<li><a class="edit" href="<%=root%>/notice">NOTICE</a>
-										<ul>
-											<li>1</li>
-											<li>2</li>
-											<li>3</li>
-										</ul>
-									</li>
 									<li><a class="edit" href="<%=root%>/planner">PLANER</a></li>
 									<li><a class="edit" href="<%=root%>/booking">BOOKING</a></li>
 									<li><a class="edit" href="<%=root%>/community">COMMUNITY</a></li>
+									<li><a href="<%=root%>/notice" class="dropdown-toggle"
+										data-toggle="dropdown" role="button" aria-haspopup="true"
+										aria-expanded="false">NOTICE <span class="caret"></span></a>
+										<ul class="dropdown-menu">
+											<li><a id="customercenterBtn" href="#">고객센터</a></li>
+											<li><a id="methodBtn" href="#">이용방법</a></li>
+											<li><a id="questBtn" href="#">문의하기</a></li>
+											<li><a id="faqBtn" href="#">F A Q</a></li>
+											<li><a id="tacBtn" href="#">이용약관</a></li>
+											<li role="separator" class="divider"></li>
+										</ul></li>
 								</ul>
 								<ul class="nav navbar-nav navbar-right">
 									<li><a class="edit" href="#" onclick="getAdd()">로그인</a></li>

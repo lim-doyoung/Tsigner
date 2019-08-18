@@ -137,15 +137,15 @@ h5 {
 
 		<div class="page-header">
 			<h1>
-				Community Center <small>Subtext for header</small>
+				Community Center <small>Planner</small>
 			</h1>
 		</div>
 
 		<ul class="nav nav-pills nav-justified">
-			<li role="presentation"><a href="community_planner">플래너</a></li>
+			<li role="presentation"  class="active"><a href="community_planner">플래너</a></li>
 			<li role="presentation"><a href="community_bbs">자유게시판</a></li>
 			<li role="presentation"><a href="community_together">투게더</a></li>
-			<li role="presentation"  class="active"><a href="community">여행후기</a></li>
+			<li role="presentation"><a href="community">여행후기</a></li>
 			<li role="presentation"><a href="community_question">질문</a></li>
 		</ul>
 	</div>

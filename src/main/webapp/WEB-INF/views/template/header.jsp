@@ -5,23 +5,30 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-<link rel="stylesheet" type="text/css" href="css/mdb.css" />
 <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css" />
 <link rel="stylesheet" type="text/css" href="css/tsigner.css" />
 <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
-<script
-  src="https://code.jquery.com/jquery-3.4.1.js"
-  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-  crossorigin="anonymous"></script>
-  <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.4.1.js"
+	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+	crossorigin="anonymous"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+	integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
+	crossorigin="anonymous">
 
 <!-- Optional theme -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css"
+	integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ"
+	crossorigin="anonymous">
 
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+	integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+	crossorigin="anonymous"></script>
 
 <script type="text/javascript">
 	function myModal() {
@@ -101,12 +108,22 @@ html, body, header, .view {
 								<ul class="nav navbar-nav">
 									<li><a class="edit" href="<%=root%>/planner">PLANER</a></li>
 									<li><a class="edit" href="<%=root%>/booking">BOOKING</a></li>
-									<li><a class="edit" href="<%=root%>/community">COMMUNITY</a></li>
+									<li><a href="<%=root%>/community" class="dropdown-toggle"
+										data-toggle="dropdown" role="button" aria-haspopup="true"
+										aria-expanded="false">COMMUNITY <span class="caret"></span></a>
+										<ul class="dropdown-menu">
+											<li><a href="<%=root%>/community_planner">플래너</a></li>
+											<li><a href="<%=root%>/community_bbs">자유게시판</a></li>
+											<li><a href="<%=root%>/community_together">투게더</a></li>
+											<li><a href="<%=root%>/community">여행후기</a></li>
+											<li><a href="<%=root%>/community_question">질문</a></li>
+											<li role="separator" class="divider"></li>
+										</ul></li>
 									<li><a href="<%=root%>/notice" class="dropdown-toggle"
 										data-toggle="dropdown" role="button" aria-haspopup="true"
 										aria-expanded="false">NOTICE <span class="caret"></span></a>
 										<ul class="dropdown-menu">
-											<li><a id="customercenterBtn" href="#">고객센터</a></li>
+											<li><a id="customercenterBtn" href="">고객센터</a></li>
 											<li><a id="methodBtn" href="#">이용방법</a></li>
 											<li><a id="questBtn" href="#">문의하기</a></li>
 											<li><a id="faqBtn" href="#">F A Q</a></li>

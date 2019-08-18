@@ -137,7 +137,7 @@ h5 {
 
 		<div class="page-header">
 			<h1>
-				Community Center <small>Subtext for header</small>
+				Community Center <small>질문게시판</small>
 			</h1>
 		</div>
 
@@ -145,38 +145,61 @@ h5 {
 			<li role="presentation"><a href="community_planner">플래너</a></li>
 			<li role="presentation"><a href="community_bbs">자유게시판</a></li>
 			<li role="presentation"><a href="community_together">투게더</a></li>
-			<li role="presentation"  class="active"><a href="community">여행후기</a></li>
-			<li role="presentation"><a href="community_question">질문</a></li>
+			<li role="presentation"><a href="community">여행후기</a></li>
+			<li role="presentation" class="active"><a href="community_question">질문</a></li>
 		</ul>
 	</div>
 
 	<!-- 여기서부터 컨텐츠입니다 -->
 	<div id="content">
 		<div class="container">
-		<div class="row">
-			<%for(int i=1; i<4;i++){ %>
-		
-			<div class="col-md-6">
-				<div class="thecard">
-					<div class="card-img">
-						<img src="imgs/a<%=i %>.jpg">
+			<div class="row">
+				<div class="jumbotron1">
+					<div id="bbs">
+						<table class="table table-hover" style="width: 80%; margin: auto;">
+							<tr>
+								<td width="5%">#</td>
+								<td align="left">제목</td>
+								<td width="10%">작성자</td>
+								<td width="10%">작성일</td>
+								<td width="10%">조회수</td>
+							</tr>
+							<%
+								for (int i = 1; i < 5; i++) {
+							%>
+							<tr>
+								<td><%=i%></td>
+								<td>Title<%=i%></td>
+								<td>tester<%=i%></td>
+								<td>00-00</td>
+								<td><%=i%></td>
+							</tr>
+							<%
+								}
+							%>
+						</table>
+						<div id="pageNum" style="text-align: center;">
+						<nav>
+							<ul class="pagination">
+							
+								<li><a href="bookingRoom?idx=" aria-label="Previous"> <span
+										aria-hidden="true">&laquo;</span>
+								</a></li>
+								<%
+								for(int i=0; i<5; i++){
+								%>
+								<li><a href="bookingRoom?idx=<%=i+1%>"><%=i+1 %></a></li>
+								<%}%>
+								<li><a href="bookingRoom?idx=" aria-label="Next"> <span
+										aria-hidden="true">&raquo;</span>
+								</a></li>
+							</ul>
+						</nav>
 					</div>
-					<div class="card-caption">
-						<i id="like-btn" class="fa fa-thumbs-o-up"></i> <span class="date">Thursday,
-							July 16, 2015</span>
-						<h1>The standard chunk of Lorem Ipsum</h1>
-						<p>Sed posuere consectetur est at lobortis. Aenean eu leo
-							quam.</p>
-					</div>
-					<div class="card-outmore">
-						<h5>Read more</h5>
-						<i id="outmore-icon" class="fa fa-angle-right"></i>
 					</div>
 				</div>
 			</div>
-			<%} %>
 		</div>
-	</div>
 	</div>
 	<!-- 여기까지 컨텐츠입니다 -->
 	<div class="jumbotron2">

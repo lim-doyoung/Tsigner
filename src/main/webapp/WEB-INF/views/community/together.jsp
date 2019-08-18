@@ -137,15 +137,15 @@ h5 {
 
 		<div class="page-header">
 			<h1>
-				Community Center <small>Subtext for header</small>
+				Community Center <small>Together</small>
 			</h1>
 		</div>
 
 		<ul class="nav nav-pills nav-justified">
 			<li role="presentation"><a href="community_planner">플래너</a></li>
 			<li role="presentation"><a href="community_bbs">자유게시판</a></li>
-			<li role="presentation"><a href="community_together">투게더</a></li>
-			<li role="presentation"  class="active"><a href="community">여행후기</a></li>
+			<li role="presentation"  class="active"><a href="community_together">투게더</a></li>
+			<li role="presentation"><a href="community">여행후기</a></li>
 			<li role="presentation"><a href="community_question">질문</a></li>
 		</ul>
 	</div>
@@ -154,14 +154,16 @@ h5 {
 	<div id="content">
 		<div class="container">
 		<div class="row">
-			<%for(int i=1; i<4;i++){ %>
-		
-			<div class="col-md-6">
+		<br>
+			<%for(int i=1; i<8;i++){ %>
+			
+			<div class="col-md-3">
 				<div class="thecard">
-					<div class="card-img">
+<%-- 					<div class="card-img">
 						<img src="imgs/a<%=i %>.jpg">
-					</div>
-					<div class="card-caption">
+					</div> --%>
+					<div class="card-caption" style="background-image:url('imgs/a<%=i %>.jpg');">
+	<%-- 						<img alt="" src="imgs/a<%=i %>.jpg"> --%>
 						<i id="like-btn" class="fa fa-thumbs-o-up"></i> <span class="date">Thursday,
 							July 16, 2015</span>
 						<h1>The standard chunk of Lorem Ipsum</h1>

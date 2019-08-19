@@ -12,4 +12,26 @@ public class CommunityController {
 		
 		return "community/community";
 	}
+	
+	@GetMapping(value = "/community_planner")
+	public String communityPlanner() {
+		
+		return "community/planner";
+	}
+	
+	@GetMapping(value = "/community_bbs")
+	public String communityBbs() {
+		
+		return "community/bbs";
+	}
+	@GetMapping(value = "/community_question")
+	public String communityquestion() {
+		
+		return "community/question";
+	}
+	@GetMapping(value = "/community_together")
+	public String communityTogether() {
+		
+		return "community/together";
+	}
 }

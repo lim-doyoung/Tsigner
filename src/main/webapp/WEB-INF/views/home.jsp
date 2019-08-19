@@ -32,11 +32,9 @@
 			$('#myModal').modal("hide");
 		});
 	});
-
 	$('#myModal').on('shown.bs.modal', function() {
 		$('#myInput').focus();
 	})
-
 	$('#signUp').on('shown.bs.modal', function() {
 		$('#myInput').focus();
 	})
@@ -50,51 +48,40 @@
 	overflow: hidden;
 	z-index: -1000;
 }
-
 .edit {
 	color: white;
 }
-
 .edit:hover {
 	color: gray;
 }
-
 .nav>li>a:hover {
 	background: rgba(0, 0, 0, 0);
 }
-
 .nav>li>a:active {
 	background-color: rgba(0, 0, 0, 0);
 }
-
 .icon-bar {
 	background: white;
 }
-
 #box {
 	height: 100%;
 }
-
 .carousel-inner img {
 	width: 100%;
 }
-
 .hr1 {
 	height: 4px;
 }
-
 #hrText {
 	line-height: 50px;
 	font-weight: bold;
 	font-size: 15px;
 	text-align: center;
 }
-
 #btn-detail {
 	margin-left: 18%;
 	margin-right: 60%;
 }
-
 </style>
 <title>T singer</title>
 </head>
@@ -309,7 +296,6 @@
 			</div>
 		</div>
 	</div>
-
 	<div id="videobg" weight="100%">
 		<video id="video" class="video-js vjs-default-skin"
 			controls="controls" preload="auto" autoplay="autoplay" loop="loop"
@@ -323,7 +309,6 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
-
 				<nav class="navbar navbar-fixed-top">
 					<div class="container-fluid">
 						<!-- Brand and toggle get grouped for better mobile display -->
@@ -342,10 +327,10 @@
 						<div class="collapse navbar-collapse"
 							id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav">
-								<li><a class="edit" href="<%=root%>/notice">NOTICE</a></li>
 								<li><a class="edit" href="<%=root%>/planner">PLANER</a></li>
 								<li><a class="edit" href="<%=root%>/booking">BOOKING</a></li>
 								<li><a class="edit" href="<%=root%>/community">COMMUNITY</a></li>
+								<li><a class="edit" href="<%=root%>/notice">NOTICE</a></li>
 							</ul>
 							<ul class="nav navbar-nav navbar-right">
 								<li><a id="login" class="edit" href="#" data-toggle="modal"

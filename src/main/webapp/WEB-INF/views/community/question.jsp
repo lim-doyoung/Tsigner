@@ -138,6 +138,12 @@ h5 {
 		<div class="page-header">
 			<h1>
 				Community Center <small>질문게시판</small>
+				<form class="navbar-form navbar-right">
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Search">
+				</div>
+				<button type="submit" class="btn btn-default">Submit</button>
+			</form>
 			</h1>
 		</div>
 

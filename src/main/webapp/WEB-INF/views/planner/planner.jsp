@@ -13,6 +13,7 @@
 <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <script type="text/javascript">
+	
 </script>
 
 <meta charset="UTF-8">
@@ -36,7 +37,8 @@
 		</div>
 	</div>
 	<!-- 여기까지 컨텐츠입니다 -->
-<div class="jumbotron2">
+
+	<div class="jumbotron2">
 		<%@ include file="../template/footer.jsp"%>
 	</div>
 

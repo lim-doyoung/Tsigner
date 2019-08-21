@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css" />
 <link rel="stylesheet" type="text/css" href="css/tsigner.css" />
@@ -54,26 +55,31 @@
 	}
 </script>
 <style type="text/css">
-#header {
-	margin-bottom: -20px;
-}
-
-.intro-2 {
-	background:
-		url("https://mdbootstrap.com/img/Photos/Others/img (50).jpg")
-		no-repeat center center;
-	background-size: cover;
-}
-
-html, body, header, .view {
-	height: 350px;
-	padding-top: -10px;
-}
-
-.textLocation1 {
-	top: 100%;
-	margin-top: 100px;
-}
+	#header {
+		margin-bottom: -20px;
+	}
+	
+	.intro-2 {
+		background:
+			url("https://mdbootstrap.com/img/Photos/Others/img (50).jpg")
+			no-repeat center center;
+		background-size: cover;
+	}
+	
+	html, body, header, .view {
+		height: 350px;
+		padding-top: -10px;
+	}
+	
+	.textLocation1 {
+		top: 100%;
+		margin-top: 100px;
+	}
+	
+	#navi{
+		height: 50px;
+		background-color: white;
+	}
 </style>
 
 <title>T singer</title>
@@ -86,61 +92,77 @@ html, body, header, .view {
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-12">
-					<nav class="navbar">
-						<div class="container-fluid">
-							<!-- Brand and toggle get grouped for better mobile display -->
-							<div class="navbar-header">
-								<button type="button" class="navbar-toggle collapsed"
-									data-toggle="collapse"
-									data-target="#bs-example-navbar-collapse-1">
-									<span class="sr-only">Toggle navigation</span> <span
-										class="icon-bar"></span> <span class="icon-bar"></span> <span
-										class="icon-bar"></span>
-								</button>
-								<a id="fontTitle" class="navbar-brand" href="<%=root%>/">T
-									Signer</a>
+					<div id="outNav">
+						<nav class="navbar navbar-fixed-top" id="navi">
+							<div class="container-fluid">
+								<!-- Brand and toggle get grouped for better mobile display -->
+								<div class="navbar-header">
+									<button type="button" class="navbar-toggle collapsed"
+										data-toggle="collapse"
+										data-target="#bs-example-navbar-collapse-1">
+										<span class="sr-only">Toggle navigation</span> <span
+											class="icon-bar"></span> <span class="icon-bar"></span> <span
+											class="icon-bar"></span>
+									</button>
+									<a id="fontTitle" class="navbar-brand" href="<%=root%>/">T
+										Signer</a>
+								</div>
+	
+								<!-- Collect the nav links, forms, and other content for toggling -->
+								<div class="collapse navbar-collapse"
+									id="bs-example-navbar-collapse-1">
+	
+									<ul class="nav navbar-nav">
+										<li><a class="edit" href="<%=root%>/planner">PLANNER</a></li>
+										<li><a class="edit" href="<%=root%>/booking">BOOKING</a></li>
+										<li><a href="<%=root%>/community" class="dropdown-toggle"
+											data-toggle="dropdown" role="button" aria-haspopup="true"
+											aria-expanded="false">COMMUNITY <span class="caret"></span></a>
+											<ul class="dropdown-menu">
+												<li><a href="<%=root%>/community_planner">플래너</a></li>
+												<li role="separator" class="divider"></li>
+												<li><a href="<%=root%>/community_bbs">자유게시판</a></li>
+												<li role="separator" class="divider"></li>
+												<li><a href="<%=root%>/community_together">투게더</a></li>
+												<li role="separator" class="divider"></li>
+												<li><a href="<%=root%>/community">여행후기</a></li>
+												<li role="separator" class="divider"></li>
+												<li><a href="<%=root%>/community_question">질문</a></li>
+											</ul></li>
+										<li><a href="<%=root%>/notice" class="dropdown-toggle"
+											data-toggle="dropdown" role="button" aria-haspopup="true"
+											aria-expanded="false">NOTICE <span class="caret"></span></a>
+											<ul class="dropdown-menu">
+												<li><a id="customercenterBtn" href="">공지사항</a></li>
+												<li role="separator" class="divider"></li>
+												<li><a id="customercenterBtn" href="">업데이트</a></li>
+												<li role="separator" class="divider"></li>
+												<li><a id="customercenterBtn" href="">이벤트</a></li>
+												<li role="separator" class="divider"></li>
+												<li><a id="customercenterBtn" href="">고객센터</a></li>
+												<li role="separator" class="divider"></li>
+												<li><a id="methodBtn" href="#">이용방법</a></li>
+												<li role="separator" class="divider"></li>
+												
+												<!-- 고객센터의 하위메뉴로 이동시켜야함 -->
+												<li><a id="questBtn" href="#">문의하기</a></li>
+												<li><a id="faqBtn" href="#">F A Q</a></li>
+												<li><a id="tacBtn" href="#">이용약관</a></li>
+	
+												
+											</ul></li>
+									</ul>
+									<ul class="nav navbar-nav navbar-right">
+										<li><a class="edit" href="#" onclick="getAdd()">로그인</a></li>
+									</ul>
+	
+	
+								</div>
+								<!-- /.navbar-collapse -->
 							</div>
-
-							<!-- Collect the nav links, forms, and other content for toggling -->
-							<div class="collapse navbar-collapse"
-								id="bs-example-navbar-collapse-1">
-
-								<ul class="nav navbar-nav">
-									<li><a class="edit" href="<%=root%>/planner">PLANER</a></li>
-									<li><a class="edit" href="<%=root%>/booking">BOOKING</a></li>
-									<li><a href="<%=root%>/community" class="dropdown-toggle"
-										data-toggle="dropdown" role="button" aria-haspopup="true"
-										aria-expanded="false">COMMUNITY <span class="caret"></span></a>
-										<ul class="dropdown-menu">
-											<li><a href="<%=root%>/community_planner">플래너</a></li>
-											<li><a href="<%=root%>/community_bbs">자유게시판</a></li>
-											<li><a href="<%=root%>/community_together">투게더</a></li>
-											<li><a href="<%=root%>/community">여행후기</a></li>
-											<li><a href="<%=root%>/community_question">질문</a></li>
-											<li role="separator" class="divider"></li>
-										</ul></li>
-									<li><a href="<%=root%>/notice" class="dropdown-toggle"
-										data-toggle="dropdown" role="button" aria-haspopup="true"
-										aria-expanded="false">NOTICE <span class="caret"></span></a>
-										<ul class="dropdown-menu">
-											<li><a id="customercenterBtn" href="">고객센터</a></li>
-											<li><a id="methodBtn" href="#">이용방법</a></li>
-											<li><a id="questBtn" href="#">문의하기</a></li>
-											<li><a id="faqBtn" href="#">F A Q</a></li>
-											<li><a id="tacBtn" href="#">이용약관</a></li>
-											<li role="separator" class="divider"></li>
-										</ul></li>
-								</ul>
-								<ul class="nav navbar-nav navbar-right">
-									<li><a class="edit" href="#" onclick="getAdd()">로그인</a></li>
-								</ul>
-
-
-							</div>
-							<!-- /.navbar-collapse -->
-						</div>
-						<!-- /.container-fluid -->
-					</nav>
+							<!-- /.container-fluid -->
+						</nav>
+					</div>
 				</div>
 			</div>
 		</div>

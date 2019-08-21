@@ -37,11 +37,11 @@ public class CommunityController {
 		return "community/bbs";
 	}
 	
-	@RequestMapping(value = "/add",method = RequestMethod.POST)
+	@RequestMapping(value = "/community_bbs/add",method = RequestMethod.POST)
 	public String communityBbsAdd(@ModelAttribute CommunityVo bean) throws SQLException {
 		System.out.println(1);
 		communityService.add(bean);
-		return "redirect:/";
+		return "community/bbs";
 	}
 	
 	@GetMapping(value = "/community_question")

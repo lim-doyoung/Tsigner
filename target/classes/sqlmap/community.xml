@@ -4,8 +4,18 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bit.tsigner.model.CommunityDao">
   <select id="selectAll" resultType="com.bit.tsigner.model.entity.CommunityVo">
-    SELECT * FROM community
+    SELECT * FROM community where cmnt_type=2
   </select>
-  
-  
+  <insert id="insertOne" parameterType="com.bit.tsigner.model.entity.CommunityVo">
+  	insert into community(cmnt_title,cmnt_writer_id,cmnt_content,regi_date,modi_date,cmnt_type) values(#{cmnt_title},#{cmnt_writer_id},#{cmnt_content},#{regi_date},#{modi_date},2)
+  </insert>
+  <select id="selectOne" resultType="com.bit.tsigner.model.entity.CommunityVo">
+  	 SELECT * FROM community where cmnt_type=2 and cmnt_seq=#{cmnt_seq}
+  </select>
+  <update id="selectOneCnt" parameterType="int">
+  	update community set cmnt_hits=cmnt_hits+1 where cmnt_type=2 and cmnt_seq=#{val}
+  </update>
+  <delete id="deleteOne" parameterType="int">
+  	delete from community where cmnt_seq=#{val}
+  </delete>
 </mapper>

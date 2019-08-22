@@ -9,26 +9,21 @@
 <head>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css" />
+<link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
 <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('#siSeoul').click(function(){
-			$('#siBtn').html('<form action="reCourseList"> <button name="region" value="서울시전체" class="btn btn-primary btn-lg" type="submit" >전체</button> <button name="region" value="서울시강남" id="gun1" class="btn btn-primary btn-lg" type="submit">강남</button> <button name="region" value="서울시종로" id="gun2" class="btn btn-primary btn-lg" type="submit">종로</button> <button name="region" value="서울시중구" id="gun3" class="btn btn-primary btn-lg" type="submit">중구</button></form>');
-		});
-		$('#siBusan').click(function(){
-			$('#siBtn').html('<form action="reCourseList"> <button name="region" value="부산시전체" class="btn btn-primary btn-lg" type="submit" >전체</button> <button name="region" value="부산시해운대" id="gun1" class="btn btn-primary btn-lg" type="submit">해운대</button> <button name="region" value="부산시부산진구" id="gun2" class="btn btn-primary btn-lg" type="submit">부산진구</button> <button name="region" value="부산시부산중구" id="gun3" class="btn btn-primary btn-lg" type="submit">중구</button></form>');
-		});
-		$('#siJeju').click(function(){
-			$('#siBtn').html('<form action="reCourseList"> <button name="region" value="제주시전체" class="btn btn-primary btn-lg" type="submit" >전체</button> <button name="region" value="제주시서귀포" id="gun1" class="btn btn-primary btn-lg" type="submit">서귀포</button> <button name="region" value="제주시제주" id="gun2" class="btn btn-primary btn-lg" type="submit">제주시</button></form>');
-		});
 	});
 
 </script>
 <style type="text/css">
 #imgs {
-	width: 171px;
-	height: 180px;
+	width: 242px;
+	height: 200px;
+}
+#thumb{
+	text-align: right;
 }
 
 #pageNum{
@@ -43,7 +38,7 @@ text-align: center;
 }
 </style>
 <meta charset="UTF-8">
-<title>Tsigner - 숙박예약</title>
+<title>Tsigner</title>
 </head>
 <body>
 
@@ -54,20 +49,32 @@ text-align: center;
 		<div class="row">
 			<div class="col-md-12">
 			<div class="row">
-			<div class="col-md-6">
-				<a role="button" class="btn btn-info btn-lg" >버어튼</a>
-			</div>
 			</div>
 			<div class="col-md-6"></div>
 			<br>
 			<div class="jumbotron" id="siBtn">
-				<button id="siSeoul" class="btn btn-info btn-lg" type="submit">서울</button>
-				<button id="siBusan" class="btn btn-info btn-lg" type="submit">부산</button>
-				<button id="siJeju" class="btn btn-info btn-lg" type="submit">제주</button>
-				</div>
+			<form action="reCourseList">
+				<button id="siSeoul" name="region" value="서울시전체" class="btn btn-default btn-lg" type="submit" >서울</button>
+				<button name="region" value="인천시전체" class="btn btn-default btn-lg" type="submit" >인천</button>
+				<button name="region" value="대전시전체" class="btn btn-default btn-lg" type="submit" >대전</button>
+				<button name="region" value="광주시전체" class="btn btn-default btn-lg" type="submit" >광주</button>
+				<button id="siBusan" name="region" value="부산시전체" class="btn btn-default btn-lg" type="submit">부산</button>
+				<button name="region" value="울산시전체" class="btn btn-default btn-lg" type="submit" >울산</button>
+				<button name="region" value="세종특별시전체" class="btn btn-default btn-lg" type="submit" >세종특별시</button>
+				<button name="region" value="경기도시전체" class="btn btn-default btn-lg" type="submit" >경기도</button>
+				<button name="region" value="강원도시전체" class="btn btn-default btn-lg" type="submit" >강원도</button>
+				<button name="region" value="충청북도시전체" class="btn btn-default btn-lg" type="submit" >충청북도</button>
+				<button name="region" value="충청남도시전체" class="btn btn-default btn-lg" type="submit" >충청남도</button>
+				<button name="region" value="경상북도시전체" class="btn btn-default btn-lg" type="submit" >경상북도</button>
+				<button name="region" value="경상남도시전체" class="btn btn-default btn-lg" type="submit" >경상남도</button>
+				<button name="region" value="전라북도시전체" class="btn btn-default btn-lg" type="submit" >전라북도</button>
+				<button name="region" value="전라남도시전체" class="btn btn-default btn-lg" type="submit" >전라남도</button>
+				<button name="region" value="제주시전체" class="btn btn-default btn-lg" type="submit" >제주</button>
+			</form>
+			</div>
 				<br>
 				<!-- 컨텐츠의 내용을 입력하세요 -->
-				<div class="col-md-12">
+				<div class="col-md-offset-2 col-md-8">
 				
 						<%
 							String jsonRoom = (String) request.getAttribute("data");
@@ -106,12 +113,16 @@ text-align: center;
 								// 								System.out.println(tmp);
 								title = title.replace("\"", "");
 								title = title.replace("[한국관광 품질인증/Korea Quality]", "");
+								if(title.length()>20){
+									title=title.substring(0, 20)+"...";
+									
+								}
 						%>
 						
 						  <div class="col-xs-6 col-md-3">
 						    <a href="courseDetail?id=<%=id%>&type=<%=type%>&val=<%=val%>" class="thumbnail">
 						      <img id="imgs" src="<%=img%>" alt="이미지">
-							 <br> <%=title %>
+							 <span class="badge"> <%=title %></span>
 						    </a>
 						  </div>
 						
@@ -129,6 +140,7 @@ text-align: center;
 					
 				</div>
 				<div class="row">
+				<div class="col-md-12">
 				<div id="pageNum">
 						<nav>
 							<ul class="pagination">
@@ -198,6 +210,7 @@ text-align: center;
 								</a></li>
 							</ul>
 						</nav>
+					</div>
 					</div>
 					</div>
 			</div>

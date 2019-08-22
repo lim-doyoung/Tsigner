@@ -8,13 +8,25 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css" />
+<link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
 <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	
 	
 	});
 </script>
+<style type="text/css">
+#courseImgs{
+	width: 100%;
+}
+#courseOverview{
+	height: 100%;
+}
+</style>
 </head>
 <body>
 <jsp:include page="../template/header.jsp"></jsp:include>
@@ -41,7 +53,6 @@ $(document).ready(function(){
 							String mapInfox = (tmp.get("mapx")).toString();
 							String mapInfoy = (tmp.get("mapy")).toString();
 							
-							String tel="번호없음";
 							
 							mapInfox=mapInfox.replace("\"", "");
 							mapInfoy=mapInfoy.replace("\"", "");
@@ -60,10 +71,6 @@ $(document).ready(function(){
 							title=title.replace("\"", "");
 							title = title.replace("[한국관광 품질인증/Korea Quality]", "");
 							
-							if(tmp.has("tel")){
-								tel = (tmp.get("tel").toString());
-								tel = tel.replace("\"", "");
-							}
 							
 							
 							
@@ -84,15 +91,14 @@ $(document).ready(function(){
 				<form action="pay" method="post">
 					<table class="table">
 						<tr>
+							<th><h2><%=title %></h2></th>
+						</tr>
+						
+						<tr>
 						<td><img src="<%=img %>" alt="이미지없음"></td>
 						<tr>
 						<tr>
-							<th><%=title %></th>
-						</tr>
-						
-					
-						<tr>
-							<th>tel : <%=tel %></th>
+							<th>위치</th>
 						</tr>
 						<tr>
 							<td>
@@ -145,13 +151,71 @@ $(document).ready(function(){
 						</tr>
 					</table>
 				</form>
+				
+				<!-- 코스 -->
+				<div id="course">
+					<div>
+					<%
+					String jsonCourse = (String)request.getAttribute("data2");
+					//System.out.println(jsonCourse);
+					JsonObject courseObject = (JsonObject)jsonParser.parse(jsonCourse);
+					JsonObject courseObject1 = (JsonObject)courseObject.get("response");
+					JsonObject courseObject2 = (JsonObject)courseObject1.get("body");
+					//System.out.println(courseObject2);
+					JsonObject courseObject3 = (JsonObject)courseObject2.get("items");
+					//System.out.println("찍혀요"+dataObject3);
+					JsonArray items = (JsonArray)courseObject3.get("item");
+					
+					for(int i=0; i<items.size(); i++){
+						JsonObject item = (JsonObject)items.get(i);
+						String subTitle="이름없음";
+						if(item.has("subdetailalt")){
+							subTitle = (item.get("subdetailalt")).toString();
+						}else if(item.has("subname")){
+							subTitle = (item.get("subname")).toString();
+						}
+						
+						String courseImg="imgs/no_img.gif";
+						if(item.has("subdetailimg")){
+							courseImg = (item.get("subdetailimg")).toString();
+						}
+						
+						String courseOverview=(item.get("subdetailoverview")).toString();
+						
+						subTitle=subTitle.replace("\"", "");
+						courseImg=courseImg.replace("\"", "");
+						courseOverview=courseOverview.replace("\"", "");
+						courseOverview=courseOverview.replace("\\n", "");
+					%>
+						<div class="row">
+							<div class="col-md-12">
+							</div>
+							<!-- 코스 사진 -->
+							<div class="col-md-6">
+								<img id="courseImgs" alt="코스사진" src="<%=courseImg%>">
+							</div>
+							
+							<!-- 코스 설명 -->
+							<div class="col-md-6">
+								<h4>코스 <%=i+1 %> : <%=subTitle%> </h4>
+								<p><%=courseOverview %></p>
+							</div>
+						</div>
+						<br>
+						<%
+						}
+						%>
+					</div>
+				</div>
+				
+				
 			</div>
 		</div>
 	</div>
 	</div>
 	<!-- 여기까지 컨텐츠입니다 -->
-
+	<div class="jumbotron2">
 	<jsp:include page="../template/footer.jsp"></jsp:include>
-
+	</div>
 </body>
 </html>

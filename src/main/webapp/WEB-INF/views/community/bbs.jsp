@@ -13,18 +13,35 @@
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css" />
+<link rel="stylesheet" type="text/css" href="css/buttons.css" />
 <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <script type="text/javascript">
-	$(document).ready(function() {
-		pageList();
-		$('#submitbtn').click(function() {
-			$('.bbsInsert').show();
-			$('.bbsDetail').hide();
-			$('#bbsTable').hide();
-		});
+	$(document)
+			.ready(
+					function() {
+						var addr = document.getElementById('downFile').value;
+						pageList();
+						$('#submitbtn').click(function() {
+							$('.bbsInsert').show();
+							$('.bbsDetail').hide();
+							$('#bbsTable').hide();
+						});
+						$('#editBtn').hide();
 
-	});
+						$('#keyword')
+								.keyup(
+										function() {
+											var k = $(this).val();
+											if(k!=null){
+											$("#communityBbsTable > tbody > tr")
+													.hide();
+											}
+											var temp = $("#communityBbsTable > tbody > tr > td:nth-child(5n+2):contains('"
+													+ k + "')");
+											$(temp).parent().show();
+										});
+					});
 
 	function pageList() {
 		$('#bbsTable').show();
@@ -41,29 +58,49 @@
 		$('.bbsDetail').show();
 		$('#bbsTable').hide();
 		$('.bbsInsert').hide();
-
 	};
 
+	function editOne() {
+		$('.bbsDetail h1').text('Edit');
+		$('#edit').hide();
+		$('#editBtn').show();
+		$('.form-control').removeAttr('readonly');
+		$('#upload').append('<label for="exampleInputFile">File input</label>');
+		$('#upload').append('<input type="file" id="exampleInputFile">');
+		$('#upload')
+				.append(
+						'<p class="help-block">Example block-level help text here.</p>');
+	}
+
 	//상세&수정&삭제
- 	$(document).on('click', '#bbsTable table tr td>a', function(e) {
+	$(document).on('click', '#bbsTable table tr td>a', function(e) {
 		e.preventDefault();
 		$('.bbsDetail').show();
 		$('#bbsTable').hide();
-		$('')
 		$.getJSON('json/obj', $(this).attr('href'), function(data) {
 			$('.bbsDetail form input').eq(0).val(data.cmnt_title);
 			$('.bbsDetail form input').eq(1).val(data.cmnt_writer_id);
 			$('.bbsDetail form textarea').val(data.cmnt_content);
+			$('#downFile').val(data.cmnt_filename);
 			$('#keyVal').val(data.cmnt_seq);
-	//		$('#detailPage').append('<a href="community_bbs/delete/'+data.cmnt_seq+'" id="del" type="button" class="btn btn-default">Delete</a>');
+			console.log(data.cmnt_filename);
+			$('#detailPage').append('<a href="upload/'+data.cmnt_filename+'" id="del" type="button" class="btn btn-default" download>download</a>');
 		});
 	});
-	
-	function deleteOne(){
-		alert(document.getElementById('keyVal').value);
-		location.href='community_bbs/delete/'+document.getElementById('keyVal').value;
-	}
+
+	function deleteOne() {
+		location.href = 'community_bbs/delete/'
+				+ document.getElementById('keyVal').value;
+	};
+
+	function download() {
+		location.href = 'community_bbs/download/'
+			+ document.getElementById('downFile').value;
+/* 		var addr = document.getElementById('downFile').value; */
+/* 		$('#upload').append('<a href="upload/'+addr+'" download>'+addr+'</a>'); */
+	};
 </script>
+
 <style type="text/css">
 .hashtag {
 	text-align: center;
@@ -93,6 +130,24 @@
 	opacity: 0.5;
 	height: 100px;
 }
+
+#bottomBtn {
+	text-align: right;
+}
+
+#div1 {
+	width: 300px;
+	height: 200px;
+	border: 1px solid #ccc;
+}
+
+#btn-detail {
+	border-radius: 30px;
+	height: 30px;
+	width: 100px;
+	line-height: 5px;
+	margin-left: 80%;
+}
 </style>
 
 <meta charset="UTF-8">
@@ -109,7 +164,8 @@
 				Community Center <small>자유게시판</small>
 				<form class="navbar-form navbar-right">
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Search">
+						<input type="text" id="keyword" class="form-control"
+							placeholder="Search">
 					</div>
 					<button type="submit" class="btn btn-default">Submit</button>
 				</form>
@@ -142,7 +198,9 @@
 				<button id="submitbtn" class="btn btn-default btn-sm">글쓰기</button>
 				<div class="jumbotron1">
 					<div id="bbsTable">
-						<table class="table table-hover" style="width: 80%; margin: auto;">
+						<table id="communityBbsTable" class="table table-hover"
+							style="width: 80%; margin: auto;">
+							<thead>
 							<tr>
 								<td width="5%">#</td>
 								<td align="left">제목</td>
@@ -150,17 +208,20 @@
 								<td width="10%">작성일</td>
 								<td width="10%">조회수</td>
 							</tr>
-							<c:forEach items="${alist }" var="bean">
-								<tr>
-									<td><a href="idx=${bean.cmnt_seq }">${bean.cmnt_seq }</a></td>
-									<td><a href="idx=${bean.cmnt_seq }">${bean.cmnt_title }</a></td>
-									<td>${bean.cmnt_writer_id }</td>
-									<!-- 문자열 자르기 -->
-									<c:set var="TextValue" value="${bean.regi_date }" />
-									<td>${fn:substring(TextValue,0,10) }</td>
-									<td>${bean.cmnt_hits }</td>
-								</tr>
-							</c:forEach>
+							</thead>
+							<tbody>
+								<c:forEach items="${alist }" var="bean">
+									<tr>
+										<td><a href="idx=${bean.cmnt_seq }">${bean.cmnt_seq }</a></td>
+										<td><a href="idx=${bean.cmnt_seq }">${bean.cmnt_title }</a></td>
+										<td>${bean.cmnt_writer_id }</td>
+										<!-- 문자열 자르기 -->
+										<c:set var="TextValue" value="${bean.modi_date }" />
+										<td>${fn:substring(TextValue,0,10) }</td>
+										<td>${bean.cmnt_hits }</td>
+									</tr>
+								</c:forEach>
+							</tbody>
 						</table>
 
 						<div id="pageNum" style="text-align: center;">
@@ -183,13 +244,15 @@
 								</ul>
 							</nav>
 						</div>
+						<a href="imgs/a1.jpg" download>download</a>
 					</div>
 
 					<!-- insert form -->
 					<div class="bbsInsert">
 						<h1>Insert</h1>
 						<img id="bgImg" alt="" src="imgs/write.jpg"> <br> <br>
-						<form action="community_bbs/add" method="post">
+						<form action="community_bbs/add" method="post"
+							enctype="multipart/form-data">
 							<div class="form-group">
 								<label for="title">Title</label> <input type="text"
 									class="form-control" id="exampleInputEmail1"
@@ -207,7 +270,7 @@
 							</div>
 							<div class="form-group">
 								<label for="exampleInputFile">File input</label> <input
-									type="file" id="exampleInputFile">
+									type="file" id="exampleInputFile" name="file2">
 								<p class="help-block">Example block-level help text here.</p>
 							</div>
 							<div class="checkbox">
@@ -221,40 +284,41 @@
 					<div class="bbsDetail">
 						<h1>Detail</h1>
 						<img id="bgImg" alt="" src="imgs/write.jpg"> <br> <br>
-						<form action="community_bbs/update" method="get" id="detailPage">
+						<form action="community_bbs/update" method="post" id="detailPage"
+							enctype="multipart/form-data">
 							<div class="form-group">
 								<label for="title">Title</label> <input type="text"
-									class="form-control" id="exampleInputEmail1"
-									placeholder="write title" name="cmnt_title"
-									value="${cmnt_title}">
+									class="form-control" id="exampleInputEmail1" name="cmnt_title"
+									readonly="readonly">
 							</div>
 							<div class="form-group">
 								<label for="name">Name</label> <input type="text"
 									class="form-control" id="exampleInputPassword1"
-									placeholder="write name" name="cmnt_writer_id"
-									value="${cmnt_writer_id }">
+									name="cmnt_writer_id" readonly="readonly">
 							</div>
-							<div class="form-group">
+							<div class="form-group" contentEditable="true">
 								<label for="content">Content</label>
-								<textarea class="form-control" rows="3"
-									placeholder="write content" name="cmnt_content">${cmnt_content}</textarea>
+								<textarea class="form-control" rows="3" name="cmnt_content"
+									readonly="readonly"><div contentEditable="true"></textarea>
 							</div>
-							<div class="form-group">
-								<label for="exampleInputFile">File input</label> <input
-									type="file" id="exampleInputFile">
-								<p class="help-block">Example block-level help text here.</p>
+							<div id="upload" class="form-group"></div>
+
+							<input type="hidden" id="keyVal" name="cmnt_seq" /> <input
+								type="text" id="downFile" name="file2" />
+							<button id="btn-detail"
+								class="button button--rayen button--border-thin button--text-thick button--text-upper button--size-s"
+								data-text="DownLoad" onclick="download()">
+								<span>DownLoad</span>
+							</button>
+							<br> <br>
+							<div id="bottomBtn">
+								<button id="editBtn" type="submit" class="btn btn-default">Edit1</button>
+								<a id="edit" type="button" class="btn btn-default"
+									onclick="editOne()">Edit2 </a> <a id="del" type="button"
+									class="btn btn-default" onclick="deleteOne()">Delete </a>
 							</div>
-							<div class="checkbox">
-								<label> <input type="checkbox"> Check me out
-								</label>
-								
-								<h1>${cmnt_seq }1</h1>
-							</div>
-							<input type="text" id="keyVal" name="keyVal">
-							<button type="submit" class="btn btn-default">Edit</button>
-						  	<a id="del" type="button" class="btn btn-default" onclick="deleteOne()">Delete
-							</a>
 						</form>
+
 					</div>
 
 				</div>

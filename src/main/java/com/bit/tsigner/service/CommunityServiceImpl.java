@@ -30,12 +30,15 @@ public class CommunityServiceImpl implements CommunityService{
 	public void add(CommunityVo bean) throws SQLException {
 		// TODO Auto-generated method stub
 		bean.setCmnt_seq(bean.getCmnt_seq());
+		bean.setCmnt_title(bean.getCmnt_title());
 		bean.setCmnt_content(bean.getCmnt_content());
-		bean.setCmnt_writer_id(bean.getCmnt_content());
+		bean.setCmnt_writer_id(bean.getCmnt_writer_id());
+		bean.setCmnt_filename(bean.getCmnt_filename());
+		bean.setCmnt_file_path2(bean.getCmnt_file_path2());
 		bean.setRegi_date(new Timestamp(System.currentTimeMillis()));
 		bean.setModi_date(new Timestamp(System.currentTimeMillis()));
 		sqlsession.getMapper(CommunityDao.class).insertOne(bean);
-		System.out.println(1);
+		System.out.println("add:"+bean);
 		
 	}
 
@@ -51,6 +54,18 @@ public class CommunityServiceImpl implements CommunityService{
 	@Override
 	public void delete(int cmnt_seq) throws SQLException {
 		sqlsession.getMapper(CommunityDao.class).deleteOne(cmnt_seq);
+	}
+
+	@Override
+	public void update(CommunityVo bean) throws SQLException {
+		// TODO Auto-generated method stub
+		bean.setCmnt_seq(bean.getCmnt_seq());
+		bean.setCmnt_title(bean.getCmnt_title());
+		bean.setCmnt_content(bean.getCmnt_content());
+		bean.setCmnt_writer_id(bean.getCmnt_content());
+		bean.setModi_date(new Timestamp(System.currentTimeMillis()));
+		System.out.println("update"+bean.toString());
+		sqlsession.getMapper(CommunityDao.class).editOne(bean);
 	}
 
 }

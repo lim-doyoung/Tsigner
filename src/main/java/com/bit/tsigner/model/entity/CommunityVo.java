@@ -6,8 +6,8 @@ import java.sql.Timestamp;
 public class CommunityVo {
 	
 	int cmnt_seq,cmnt_hits,cmnt_recom;
-	String cmnt_title,cmnt_content,cmnt_writer_id,plan_code,cmnt_file_path1,cmnt_file_path2,cmnt_file_path3,cmnt_file_path4,cmnt_file_path5;
-	Timestamp cmnt_regi_date,cmnt_modi_date;
+	String cmnt_title,cmnt_content,cmnt_writer_id,plan_code,cmnt_file_path1,cmnt_file_path2,cmnt_file_path3,cmnt_file_path4,cmnt_file_path5,cmnt_type,cmnt_filename;
+	Timestamp regi_date,modi_date;
 	
 	public CommunityVo() {
 		// TODO Auto-generated constructor stub
@@ -109,51 +109,36 @@ public class CommunityVo {
 		this.cmnt_file_path5 = cmnt_file_path5;
 	}
 
-	public Timestamp getCmnt_regi_date() {
-		return cmnt_regi_date;
+	public String getCmnt_type() {
+		return cmnt_type;
 	}
 
-	public void setCmnt_regi_date(Timestamp cmnt_regi_date) {
-		this.cmnt_regi_date = cmnt_regi_date;
+	public void setCmnt_type(String cmnt_type) {
+		this.cmnt_type = cmnt_type;
 	}
 
-	public Timestamp getCmnt_modi_date() {
-		return cmnt_modi_date;
+	public String getCmnt_filename() {
+		return cmnt_filename;
 	}
 
-	public void setCmnt_modi_date(Timestamp cmnt_modi_date) {
-		this.cmnt_modi_date = cmnt_modi_date;
+	public void setCmnt_filename(String cmnt_filename) {
+		this.cmnt_filename = cmnt_filename;
 	}
 
-	public CommunityVo(int cmnt_seq, int cmnt_hits, int cmnt_recom, String cmnt_title, String cmnt_content,
-			String cmnt_writer_id, String plan_code, String cmnt_file_path1, String cmnt_file_path2,
-			String cmnt_file_path3, String cmnt_file_path4, String cmnt_file_path5, Timestamp cmnt_regi_date,
-			Timestamp cmnt_modi_date) {
-		super();
-		this.cmnt_seq = cmnt_seq;
-		this.cmnt_hits = cmnt_hits;
-		this.cmnt_recom = cmnt_recom;
-		this.cmnt_title = cmnt_title;
-		this.cmnt_content = cmnt_content;
-		this.cmnt_writer_id = cmnt_writer_id;
-		this.plan_code = plan_code;
-		this.cmnt_file_path1 = cmnt_file_path1;
-		this.cmnt_file_path2 = cmnt_file_path2;
-		this.cmnt_file_path3 = cmnt_file_path3;
-		this.cmnt_file_path4 = cmnt_file_path4;
-		this.cmnt_file_path5 = cmnt_file_path5;
-		this.cmnt_regi_date = cmnt_regi_date;
-		this.cmnt_modi_date = cmnt_modi_date;
+	public Timestamp getRegi_date() {
+		return regi_date;
 	}
 
-	@Override
-	public String toString() {
-		return "CommunityVo [cmnt_seq=" + cmnt_seq + ", cmnt_hits=" + cmnt_hits + ", cmnt_recom=" + cmnt_recom
-				+ ", cmnt_title=" + cmnt_title + ", cmnt_content=" + cmnt_content + ", cmnt_writer_id=" + cmnt_writer_id
-				+ ", plan_code=" + plan_code + ", cmnt_file_path1=" + cmnt_file_path1 + ", cmnt_file_path2="
-				+ cmnt_file_path2 + ", cmnt_file_path3=" + cmnt_file_path3 + ", cmnt_file_path4=" + cmnt_file_path4
-				+ ", cmnt_file_path5=" + cmnt_file_path5 + ", cmnt_regi_date=" + cmnt_regi_date + ", cmnt_modi_date="
-				+ cmnt_modi_date + "]";
+	public void setRegi_date(Timestamp regi_date) {
+		this.regi_date = regi_date;
+	}
+
+	public Timestamp getModi_date() {
+		return modi_date;
+	}
+
+	public void setModi_date(Timestamp modi_date) {
+		this.modi_date = modi_date;
 	}
 
 	@Override
@@ -166,10 +151,12 @@ public class CommunityVo {
 		result = prime * result + ((cmnt_file_path3 == null) ? 0 : cmnt_file_path3.hashCode());
 		result = prime * result + ((cmnt_file_path4 == null) ? 0 : cmnt_file_path4.hashCode());
 		result = prime * result + ((cmnt_file_path5 == null) ? 0 : cmnt_file_path5.hashCode());
+		result = prime * result + ((cmnt_filename == null) ? 0 : cmnt_filename.hashCode());
 		result = prime * result + cmnt_hits;
 		result = prime * result + cmnt_recom;
 		result = prime * result + cmnt_seq;
 		result = prime * result + ((cmnt_title == null) ? 0 : cmnt_title.hashCode());
+		result = prime * result + ((cmnt_type == null) ? 0 : cmnt_type.hashCode());
 		result = prime * result + ((cmnt_writer_id == null) ? 0 : cmnt_writer_id.hashCode());
 		result = prime * result + ((plan_code == null) ? 0 : plan_code.hashCode());
 		return result;
@@ -214,6 +201,11 @@ public class CommunityVo {
 				return false;
 		} else if (!cmnt_file_path5.equals(other.cmnt_file_path5))
 			return false;
+		if (cmnt_filename == null) {
+			if (other.cmnt_filename != null)
+				return false;
+		} else if (!cmnt_filename.equals(other.cmnt_filename))
+			return false;
 		if (cmnt_hits != other.cmnt_hits)
 			return false;
 		if (cmnt_recom != other.cmnt_recom)
@@ -224,6 +216,11 @@ public class CommunityVo {
 			if (other.cmnt_title != null)
 				return false;
 		} else if (!cmnt_title.equals(other.cmnt_title))
+			return false;
+		if (cmnt_type == null) {
+			if (other.cmnt_type != null)
+				return false;
+		} else if (!cmnt_type.equals(other.cmnt_type))
 			return false;
 		if (cmnt_writer_id == null) {
 			if (other.cmnt_writer_id != null)
@@ -238,8 +235,38 @@ public class CommunityVo {
 		return true;
 	}
 
-	
-	
-	
-	
+	@Override
+	public String toString() {
+		return "CommunityVo [cmnt_seq=" + cmnt_seq + ", cmnt_hits=" + cmnt_hits + ", cmnt_recom=" + cmnt_recom
+				+ ", cmnt_title=" + cmnt_title + ", cmnt_content=" + cmnt_content + ", cmnt_writer_id=" + cmnt_writer_id
+				+ ", plan_code=" + plan_code + ", cmnt_file_path1=" + cmnt_file_path1 + ", cmnt_file_path2="
+				+ cmnt_file_path2 + ", cmnt_file_path3=" + cmnt_file_path3 + ", cmnt_file_path4=" + cmnt_file_path4
+				+ ", cmnt_file_path5=" + cmnt_file_path5 + ", cmnt_type=" + cmnt_type + ", cmnt_filename="
+				+ cmnt_filename + ", regi_date=" + regi_date + ", modi_date=" + modi_date + "]";
+	}
+
+	public CommunityVo(int cmnt_seq, int cmnt_hits, int cmnt_recom, String cmnt_title, String cmnt_content,
+			String cmnt_writer_id, String plan_code, String cmnt_file_path1, String cmnt_file_path2,
+			String cmnt_file_path3, String cmnt_file_path4, String cmnt_file_path5, String cmnt_type,
+			String cmnt_filename, Timestamp regi_date, Timestamp modi_date) {
+		super();
+		this.cmnt_seq = cmnt_seq;
+		this.cmnt_hits = cmnt_hits;
+		this.cmnt_recom = cmnt_recom;
+		this.cmnt_title = cmnt_title;
+		this.cmnt_content = cmnt_content;
+		this.cmnt_writer_id = cmnt_writer_id;
+		this.plan_code = plan_code;
+		this.cmnt_file_path1 = cmnt_file_path1;
+		this.cmnt_file_path2 = cmnt_file_path2;
+		this.cmnt_file_path3 = cmnt_file_path3;
+		this.cmnt_file_path4 = cmnt_file_path4;
+		this.cmnt_file_path5 = cmnt_file_path5;
+		this.cmnt_type = cmnt_type;
+		this.cmnt_filename = cmnt_filename;
+		this.regi_date = regi_date;
+		this.modi_date = modi_date;
+	}
+
+
 }

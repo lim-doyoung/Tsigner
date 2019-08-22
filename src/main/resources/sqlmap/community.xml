@@ -4,10 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bit.tsigner.model.CommunityDao">
   <select id="selectAll" resultType="com.bit.tsigner.model.entity.CommunityVo">
-    SELECT * FROM community where cmnt_type=2
+    SELECT * FROM community where cmnt_type=2 order by modi_date desc
   </select>
   <insert id="insertOne" parameterType="com.bit.tsigner.model.entity.CommunityVo">
-  	insert into community(cmnt_title,cmnt_writer_id,cmnt_content,regi_date,modi_date,cmnt_type) values(#{cmnt_title},#{cmnt_writer_id},#{cmnt_content},#{regi_date},#{modi_date},2)
+  	insert into community(cmnt_title,cmnt_writer_id,cmnt_content,regi_date,modi_date,cmnt_filename,cmnt_file_path2,cmnt_type) values(#{cmnt_title},#{cmnt_writer_id},#{cmnt_content},#{regi_date},#{modi_date},#{cmnt_filename},#{cmnt_file_path2},2)
   </insert>
   <select id="selectOne" resultType="com.bit.tsigner.model.entity.CommunityVo">
   	 SELECT * FROM community where cmnt_type=2 and cmnt_seq=#{cmnt_seq}
@@ -18,4 +18,7 @@
   <delete id="deleteOne" parameterType="int">
   	delete from community where cmnt_seq=#{val}
   </delete>
+  <update id="editOne" parameterType="com.bit.tsigner.model.entity.CommunityVo">
+  	update community set cmnt_title=#{cmnt_title},cmnt_content=#{cmnt_content},modi_date=#{modi_date} where cmnt_seq=#{cmnt_seq}
+  </update>
 </mapper>

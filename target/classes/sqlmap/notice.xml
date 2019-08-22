@@ -4,8 +4,17 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bit.tsigner.model.NoticeDao">
   <select id="selectAll" resultType="com.bit.tsigner.model.entity.NoticeVo">
-    SELECT * FROM test
+    SELECT * FROM NOTICE
   </select>
+  
+  <insert id="insertOne" parameterType="com.bit.tsigner.model.entity.NoticeVo">
+  	INSERT INTO NOTICE (noti_title,noti_content,noti_writer_id,regi_date,modi_date) VALUES(#{noti_title},#{noti_content}, #{noti_writer_id}, now(),now())
+  </insert>
+  
+  <select id="selectOne" parameterType="java.lang.Integer" resultType="com.bit.tsigner.model.entity.NoticeVo">
+  	SELECT * FROM NOTICE WHERE NOTI_SEQ=#{idx}
+  </select>
+  
   
   
 </mapper>

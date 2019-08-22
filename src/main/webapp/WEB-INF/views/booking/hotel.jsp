@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css" />
+<link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
 <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <style type="text/css">
@@ -18,6 +19,31 @@
 	text-align: right;
 }
 </style>
+<script type="text/javascript">
+
+		function citySelect(province){
+// 			alert('변경');
+			$.ajax({
+				url:'searchCode',
+				type:'POST',
+				dataType:'json',
+				data : {param:province},
+				success:function(result){
+// 					alert(result);
+					//select box 초기화
+					$('#region').find('option').remove().end().append('<option value="">지역을 선택</option>');
+					//option 추가
+					$.each(result, function(i){
+						$('#region').append('<option value="'+result[i]+'">'+result[i]+'</option>');
+					});
+				},
+				erro:function(jqXHR, textStatus, errorThrown){
+					alert('오류가 발생했습니다');
+				}
+			});
+		}
+
+</script>
 </head>
 <body>
 
@@ -35,22 +61,23 @@
 							<form action="searchRoom" class="form-inline">
 								<div class="form-group">
 									<label for="checkIn">지역</label>
-									<select class="form-control" name="region">
-									<optgroup label="서울">
-										<option value="se1">서울</option>
-										<option value="se2">강남ㆍ역삼ㆍ삼성ㆍ신사ㆍ청담</option>
-										<option value="se3">서초ㆍ교대</option>
-										<option value="se4">잠실ㆍ송파ㆍ왕십리ㆍ강동</option>
-										<option value="se5">을지로ㆍ시청ㆍ명동</option>
-										<option value="se6">종로ㆍ인사동ㆍ동대문ㆍ강북</option>
-										<option value="se7">서울역ㆍ이태원ㆍ용산</option>
-										<option value="se8">마포ㆍ홍대ㆍ신총ㆍ서대문</option>
-										<option value="se9">영등포ㆍ여의도ㆍ김포공항</option>
-										<option value="se10">구로ㆍ금천ㆍ관악ㆍ동작</option>
-									</optgroup>
-										<option>부산</option>
-										<option>제주</option>
+									<select id="province" name="province" onchange="citySelect(this.value);" class="form-control">
+										<option value="">지역</option>
+										<option value="seoul">서울</option>
+										<option value="busan">부산</option>
+										<option value="jeju">제주</option>
+										<option value="gangwon">강원</option>
+										<option value="geunggi">경기</option>
+										<option value="incheon">인천</option>
+										<option value="geungsang">경상</option>
+										<option value="junla">전라</option>
+										<option value="chungcheng">충청</option>
 									</select>
+									<select class="form-control" id="region" name="region">
+										<option value="">지역을 선택하세요</option>
+									</select>
+									
+									
 								</div>
 								<br>
 								<div class="form-group">

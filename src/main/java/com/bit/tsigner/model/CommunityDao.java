@@ -13,4 +13,5 @@ public interface CommunityDao {
 	CommunityVo selectOne(int num) throws SQLException;
 	void selectOneCnt(int cmnt_seq) throws SQLException;
 	void deleteOne(int cmnt_seq) throws SQLException;
+	void editOne(CommunityVo bean) throws SQLException;
 }

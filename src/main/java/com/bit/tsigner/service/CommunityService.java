@@ -14,4 +14,5 @@ public interface CommunityService {
 	CommunityVo detail(int num) throws SQLException;
 	void detailCnt(int cmnt_seq) throws SQLException;
 	void delete(int cmnt_seq) throws SQLException;
+	void update(CommunityVo bean) throws SQLException;
 }

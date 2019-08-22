@@ -114,7 +114,14 @@
 	
 									<ul class="nav navbar-nav">
 										<li><a class="edit" href="<%=root%>/planner">PLANNER</a></li>
-										<li><a class="edit" href="<%=root%>/booking">BOOKING</a></li>
+										<li><a href="<%=root%>/community" class="dropdown-toggle"
+											data-toggle="dropdown" role="button" aria-haspopup="true"
+											aria-expanded="false">BOOKING <span class="caret"></span></a>
+											<ul class="dropdown-menu">
+												<li><a href="<%=root%>/booking">투어 정보</a></li>
+												<li role="separator" class="divider"></li>
+												<li><a href="<%=root%>/hotel">호텔 예약</a></li>
+											</ul></li>
 										<li><a href="<%=root%>/community" class="dropdown-toggle"
 											data-toggle="dropdown" role="button" aria-haspopup="true"
 											aria-expanded="false">COMMUNITY <span class="caret"></span></a>

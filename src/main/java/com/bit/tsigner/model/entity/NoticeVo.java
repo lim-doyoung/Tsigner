@@ -2,12 +2,16 @@ package com.bit.tsigner.model.entity;
 
 import java.sql.Timestamp;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class NoticeVo {
 	int noti_seq, noti_hits;
 	String noti_title, noti_content, noti_writer_id, noti_type;
 	String noti_file_path1, noti_file_path2, noti_file_path3;
 	String noti_file_path4, noti_file_path5;
 	Timestamp regi_date, modi_date;
+	MultipartFile[] upload_files;	//getter setter만 만들어줬음
+	
 	
 	
 	public NoticeVo() {
@@ -172,6 +176,16 @@ public class NoticeVo {
 
 	public void setModi_date(Timestamp modi_date) {
 		this.modi_date = modi_date;
+	}
+
+	
+	public MultipartFile[] getUpload_files() {
+		return upload_files;
+	}
+
+
+	public void setUpload_files(MultipartFile[] upload_files) {
+		this.upload_files = upload_files;
 	}
 
 

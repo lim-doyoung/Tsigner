@@ -21,6 +21,7 @@
 </style>
 <script type="text/javascript">
 
+
 		function citySelect(province){
 // 			alert('변경');
 			$.ajax({
@@ -79,6 +80,7 @@
 									
 									
 								</div>
+								
 								<br>
 								<div class="form-group">
 									<label for="checkIn">체크인</label> <input name="checkIn" type="date" class="form-control" id="checkIn" placeholder="Jane Doe">

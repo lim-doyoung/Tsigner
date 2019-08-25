@@ -8,6 +8,7 @@ public class CommunityVo {
 	int cmnt_seq,cmnt_hits,cmnt_recom;
 	String cmnt_title,cmnt_content,cmnt_writer_id,plan_code,cmnt_file_path1,cmnt_file_path2,cmnt_file_path3,cmnt_file_path4,cmnt_file_path5,cmnt_type,cmnt_filename;
 	Timestamp regi_date,modi_date;
+	int page,perPageNum;
 	
 	public CommunityVo() {
 		// TODO Auto-generated constructor stub
@@ -141,6 +142,22 @@ public class CommunityVo {
 		this.modi_date = modi_date;
 	}
 
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+	public int getPerPageNum() {
+		return perPageNum;
+	}
+
+	public void setPerPageNum(int perPageNum) {
+		this.perPageNum = perPageNum;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -158,6 +175,8 @@ public class CommunityVo {
 		result = prime * result + ((cmnt_title == null) ? 0 : cmnt_title.hashCode());
 		result = prime * result + ((cmnt_type == null) ? 0 : cmnt_type.hashCode());
 		result = prime * result + ((cmnt_writer_id == null) ? 0 : cmnt_writer_id.hashCode());
+		result = prime * result + page;
+		result = prime * result + perPageNum;
 		result = prime * result + ((plan_code == null) ? 0 : plan_code.hashCode());
 		return result;
 	}
@@ -227,6 +246,10 @@ public class CommunityVo {
 				return false;
 		} else if (!cmnt_writer_id.equals(other.cmnt_writer_id))
 			return false;
+		if (page != other.page)
+			return false;
+		if (perPageNum != other.perPageNum)
+			return false;
 		if (plan_code == null) {
 			if (other.plan_code != null)
 				return false;
@@ -242,13 +265,14 @@ public class CommunityVo {
 				+ ", plan_code=" + plan_code + ", cmnt_file_path1=" + cmnt_file_path1 + ", cmnt_file_path2="
 				+ cmnt_file_path2 + ", cmnt_file_path3=" + cmnt_file_path3 + ", cmnt_file_path4=" + cmnt_file_path4
 				+ ", cmnt_file_path5=" + cmnt_file_path5 + ", cmnt_type=" + cmnt_type + ", cmnt_filename="
-				+ cmnt_filename + ", regi_date=" + regi_date + ", modi_date=" + modi_date + "]";
+				+ cmnt_filename + ", regi_date=" + regi_date + ", modi_date=" + modi_date + ", page=" + page
+				+ ", perPageNum=" + perPageNum + "]";
 	}
 
 	public CommunityVo(int cmnt_seq, int cmnt_hits, int cmnt_recom, String cmnt_title, String cmnt_content,
 			String cmnt_writer_id, String plan_code, String cmnt_file_path1, String cmnt_file_path2,
 			String cmnt_file_path3, String cmnt_file_path4, String cmnt_file_path5, String cmnt_type,
-			String cmnt_filename, Timestamp regi_date, Timestamp modi_date) {
+			String cmnt_filename, Timestamp regi_date, Timestamp modi_date, int page, int perPageNum) {
 		super();
 		this.cmnt_seq = cmnt_seq;
 		this.cmnt_hits = cmnt_hits;
@@ -266,7 +290,10 @@ public class CommunityVo {
 		this.cmnt_filename = cmnt_filename;
 		this.regi_date = regi_date;
 		this.modi_date = modi_date;
+		this.page = page;
+		this.perPageNum = perPageNum;
 	}
-
+	
+	
 
 }

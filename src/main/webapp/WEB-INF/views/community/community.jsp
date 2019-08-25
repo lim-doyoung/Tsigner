@@ -169,9 +169,13 @@ h5 {
 							quam.</p>
 					</div>
 					<div class="card-outmore">
-						<h5>Read more</h5>
-						<i id="outmore-icon" class="fa fa-angle-right"></i>
+						<a class="btn btn-primary" role="button" data-toggle="collapse"
+					href="#collapse<%=i%>" aria-expanded="false"
+					aria-controls="collapseExample"> Link with href </a>
 					</div>
+					<div class="collapse" id="collapse<%=i %>">
+						<div class="well">hello java</div>
+						</div>
 				</div>
 			</div>
 			<%} %>

@@ -1,9 +1,16 @@
 package com.bit.tsigner;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.impl.io.HttpResponseWriter;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -17,11 +24,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bit.naver.NaverLoginBO;
+import com.bit.tsigner.model.entity.LoginVo;
+import com.bit.tsigner.service.LoginService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
 @Controller
 public class HomeController {
+	
+	@Inject
+	LoginService loginService;
 	
 	//카카오톡
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -53,10 +65,77 @@ public class HomeController {
 		return "home";
 	}
 	
+	//로그인 연습
+	@RequestMapping (value = "/login")
+	public String login() {
+		
+		return "loginTest";
+	}
+	
+	//일반 로그인
+	@RequestMapping (value = "/loginUser")
+	public void loginResult(@RequestParam("id") String id , @RequestParam("pw") String pw, HttpSession session, HttpServletResponse res) throws Exception {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", id);
+		map.put("pw", pw);
+		LoginVo bean=new LoginVo();
+		
+		if((loginService.login(map))==null) {
+			res.getWriter().write("logFail");
+			logger.debug("실패");
+		}else {
+			logger.debug("성공");
+			bean = loginService.login(map);
+			session.setAttribute("id", bean.getUser_name());
+		}
+	}
+	
+	//로그아웃
+	@RequestMapping (value = "/logoutUser")
+	public void logoutUser(HttpSession session,HttpServletResponse res) throws IOException {
+		session.removeAttribute("id");
+		res.getWriter().write("logoutSuccess");
+		
+	}
+	
+	//일반 회원가입
+	@RequestMapping(value = "joinUser")
+	public void joinUser(@RequestParam("id") String id,@RequestParam("pw") String pw,@RequestParam("userName") String userName,
+			@RequestParam("nickName") String nickName,@RequestParam("email") String email,@RequestParam("tel") String tel,
+			@RequestParam("birth") String birth,@RequestParam("gender") String gender, HttpServletResponse res) throws Exception {
+		logger.debug("회원가입 실행");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("pw", pw);
+		map.put("userName", userName);
+		map.put("nickName", nickName);
+		map.put("email", email);
+		map.put("tel", tel);
+		map.put("birth", birth);
+		map.put("gender", gender);
+		
+		loginService.join(map);
+		loginService.join_level_mgt(map);
+	}
+	
+	//아이디 중복검사
+	@RequestMapping (value = "idCheck")
+	public void idCheck(@RequestParam("id") String id, HttpServletResponse res) throws Exception {
+		logger.debug("중복검사");
+		if(!(loginService.idCheck(id)==null)) {
+			res.getWriter().write("fail");
+		}else {
+			res.getWriter().write("success");
+		}
+		
+	}
+	
 	//카카오톡 로그인
 	@RequestMapping(value = "/oauth", produces = "application/json")
     public String kakaoLogin(@RequestParam("code") String code, Model model, HttpSession session) {
-
+		System.out.println("여기엔 오긴 하는지");
 		System.out.println("로그인 할때 임시 코드값");
         //카카오 홈페이지에서 받은 결과 코드
         System.out.println(code);

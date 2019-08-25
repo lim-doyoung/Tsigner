@@ -30,11 +30,6 @@ $(document).ready(function(){
 	
 });
 
-function getDetail(){
-	
-}
-
-
 
 </script>
 
@@ -69,37 +64,27 @@ function getDetail(){
 <body>
 	
 	<jsp:include page="../template/header.jsp"></jsp:include>
+	<br>
 	<%
 		String root = request.getContextPath();
 	%>
 	<!-- 여기서부터 컨텐츠입니다 -->
-	<div id="content">
-		<div class="row">
-			<div class="col-md-12">
+	<div class="container">
+			<!-- 컨텐츠의 내용을 입력하세요 -->
 				
-				<!-- 컨텐츠의 내용을 입력하세요 -->
-				<div class="col-md-offset-2 col-md-8">
-					<h1>COMMUNITY</h1>
-					
-					<div>
-						<div class="btn-group btn-group-justified" role="group" aria-label="...">
-						  <div class="btn-group" role="group">
-						    <button type="button" class="btn btn-default">플래너</button>
-						  </div>
-						  <div class="btn-group" role="group">
-						    <a href="<%=root %>/community/notice"><button type="button" class="btn btn-default">자유게시판</button></a>
-						  </div>
-						  <div class="btn-group" role="group">
-						    <button type="button" class="btn btn-default">투게더</button>
-						  </div>
-						  <div class="btn-group" role="group">
-						    <button type="button" class="btn btn-default">여행후기</button>
-						  </div>
-						  <div class="btn-group" role="group">
-						    <button type="button" class="btn btn-default">질문</button>
-						  </div>
-						</div>
+					<div class="page-header">
+						<h1>
+							Notice <small> 공지사항</small>
+						</h1>
 					</div>
+			
+					<ul class="nav nav-pills nav-justified">
+						<li role="presentation" class="active"><a href="<%=root %>/notice">공지사항</a></li>
+						<li role="presentation"><a href="<%=root %>">이용방법</a></li>
+						<li role="presentation"><a href="<%=root %>">이벤트</a></li>
+						<li role="presentation"><a href="<%=root %>">업데이트</a></li>
+						
+					</ul>
 <div id="noticelist">		<!-- 자유게시판 리스트 시작-->	
 					
 					<div class="row">
@@ -169,7 +154,7 @@ function getDetail(){
 		 							<td><a class="detailList" href="notice/detail?idx=${bean.noti_seq }">${bean.noti_title }</a></td>
 		 							<td><a class="detailList" href="notice/detail?idx=${bean.noti_seq }">${bean.noti_writer_id }</a></td>
 		 							<td><a class="detailList" href="notice/detail?idx=${bean.noti_seq }">${bean.regi_date }</a></td>
-		 							<td><a  class="detailList" href="notice/detail?idx=${bean.noti_seq }">${bean.noti_hits }</a></td>
+		 							<td><a class="detailList" href="notice/detail?idx=${bean.noti_seq }">${bean.noti_hits }</a></td>
 		 						</tr>
 		 					</c:forEach>
 		 					
@@ -227,12 +212,18 @@ function getDetail(){
 				<label class="radio-inline">
 				  <input type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option5"> 질문
 				</label>
-				<div id="addFile">
-					<button class="btn btn-default" type="submit">첨부파일</button>
-				</div>
 				
-		<form action="notice/add" method="post">
-			<div>
+		<!-- 첨부파일 시작 -->	
+		<form action="notice/add" method="post" enctype="multipart/form-data">
+			<div id="addFile">
+				<label>
+					<input type="file" name="upload_files" />
+				</label>	
+				
+			</div>
+		<!-- 첨부파일 끝 -->
+		
+		<div>
 				<input type="text" name="noti_title" class="form-control" placeholder="제목을 입력해주세요">
 				
 			</div>
@@ -243,7 +234,7 @@ function getDetail(){
 			<div id="addBtns">
 				<button class="btn btn-primary" type="submit">등록하기</button>
 				<button class="btn btn-default" type="reset">취소</button>
-				 <!--<button class="btn btn-default" onclick="updateOne();">수정하기</button> -->
+				
 			</div>
 		
 		</form>
@@ -253,9 +244,7 @@ function getDetail(){
 		</div>
 				
 				
-			</div>
-		</div>
-	</div>
+		
 	<!-- 여기까지 컨텐츠입니다 -->
 	<div class="jumbotron2">
 		<%@ include file="../template/footer.jsp"%>

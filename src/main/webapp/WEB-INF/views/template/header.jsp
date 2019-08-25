@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,9 +11,6 @@
 <link rel="stylesheet" type="text/css" href="css/tsigner.css" />
 <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
-<script src="https://code.jquery.com/jquery-3.4.1.js"
-	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-	crossorigin="anonymous"></script>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
@@ -32,6 +30,21 @@
 	crossorigin="anonymous"></script>
 
 <script type="text/javascript">
+$(document).ready(function() {
+	$('#signT').click(function() {
+		$('#myModal').modal("hide");
+	});
+});
+
+$('#myModal').on('shown.bs.modal', function() {
+	$('#myInput').focus();
+})
+
+$('#signUp').on('shown.bs.modal', function() {
+	$('#myInput').focus();
+})
+
+
 	function myModal() {
 		//		$('#myModal .modal-header h4').text("입력페이지");
 		//		$('#myModal form input').eq(0).val('');
@@ -53,6 +66,106 @@
 		$('.modal-footer button').eq(1).show();
 
 	}
+
+	function login(){
+		var id = $('#id').val();
+		var pw = $('#pw').val();
+		var page = window.location.pathname;
+
+		$.ajax({
+			type:"post",
+			url:"loginUser",
+			data: "id="+id+"&pw="+pw,
+			dataType:"text",
+			success:function(data, textStatus, xhr){
+				
+				if(data=='logFail'){
+					alert('로그인에 실패하셨습니다.');
+				}else{
+					window.location.href=page;
+				}
+				
+			},
+
+			error : function(request, status, error){
+				console.log("code:"+request.status + "\n" + "error"+error);
+			}
+			
+		})		
+	}
+
+	function logout(){
+		var page = window.location.pathname;
+		
+		$.ajax({
+			type:'post',
+			url:'logoutUser',
+			success:function(data){
+				if(data=='logoutSuccess'){
+					alert('정상적으로 로그아웃 되셨습니다');	
+					window.location.href=page;
+				}else{
+					alert('로그아웃 실패');
+				}
+			},
+			error : function(request, status, error){
+				console.log("code:"+request.status + "\n" + "error"+error);
+			}
+		})
+	}
+
+	function join(){
+		var id = $('#joinId').val();
+		var pw = $('#joinPw').val();
+		var name = $('#joinName').val();
+		var nickName = $('#joinNickName').val();
+		var tel = $('#joinTel').val();
+		var birth = $('#joinBirth').val();
+		var email = $('#joinEmail').val();
+		var gender = $('.joinGender:checked').val();
+
+		$.ajax({
+			type:'post',
+			url:'joinUser',
+			data:"id="+id+"&pw="+pw+"&userName="+name+"&nickName="+nickName+"&tel="+tel+"&birth="+birth+"&email="+email+"&gender="+gender,
+			datatype:"text",
+			success:function(data){
+					
+			}
+		})	
+	}
+
+	function passwordCheck(){
+		$('#pwCheckResult').remove();
+		var pw1 = $('#joinPw').val();
+		var pw2 = $('#joinPwCheck').val();
+
+		if(pw1!=pw2){
+			$('#joinPwCheck').after('<label id="pwCheckResult" style="color: red">비밀번호가 다릅니다</label>');
+		}
+	}
+
+	function idCheck(){
+
+		$('#idCheckResult').remove();
+		var idCheck = $('#joinId').val();
+		
+		$.ajax({
+			type:'post',
+			url:'idCheck',
+			data:"id="+idCheck,
+			datatype:"text",
+			success:function(data){
+				if(data=='fail'){
+					$('#joinId').after('<label id="idCheckResult" style="color: red">아이디 중복!</label>');
+					
+				}else{
+					$('#joinId').after('<label id="idCheckResult" style="color: blue">생성가능</label>');
+				}
+			}
+		})
+	}
+	
 </script>
 <style type="text/css">
 	#header {
@@ -88,6 +201,248 @@
 	<%
 		String root = request.getContextPath();
 	%>
+	
+	<!--Login Modal 111111111111111111111111-->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<!-- header -->
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Login</h4>
+				</div>
+				<!--login content -->
+					<div class="modal-body">
+					
+					<!-- 카카오톡 로그인 -->
+						<div class="form-group">
+				   		
+					   		<a id="kakao-login-btn"></a>
+					   		<a href="http://developers.kakao.com/logout"></a>
+					   		<script type='text/javascript'>
+							  //<![CDATA[
+							    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+							    Kakao.init('5f5f158f6a04f8c297bf6844e97ae3cf');
+							    // 카카오 로그인 버튼을 생성합니다.
+							    Kakao.Auth.createLoginButton({
+							      container: '#kakao-login-btn',
+							      success: function(authObj) {
+							        // 로그인 성공시, API를 호출합니다.
+							        Kakao.API.request({
+							          url: 'oauth',
+							          success: function(res) {
+							            console.log(JSON.stringify(res));
+							          },
+							          fail: function(error) {
+							            alert(JSON.stringify(error));
+							          }
+							        });
+							      },
+							      fail: function(err) {
+							        alert(JSON.stringify(err));
+							      }
+							    });
+							  //]]>
+	
+							    function kout(){
+							    	alert("script");
+							    	Kakao.Auth.logout(function(data){
+							                alert(data);
+							            });
+							    }
+							</script>
+					   		<a href = "https://kauth.kakao.com/oauth/authorize?client_id=cf59d8cf164537ca58f158a8dcd3c7f4&redirect_uri=http://192.168.1.8:8080/tsigner/oauth&response_type=code">
+						        로그인
+						    </a>
+					  </div>
+					
+						<!-- 페이스북 -->
+						<div class="form-group">
+							<div id="fb-root"></div>
+							<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v4.0&appId=417177695583034&autoLogAppEvents=1"></script>
+							<div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with" data-auto-logout-link="false" data-use-continue-as="false"></div>
+							<script>
+							  window.fbAsyncInit = function() {
+							    FB.init({
+							      appId      : '{your-app-id}',
+							      cookie     : true,
+							      xfbml      : true,
+							      version    : '{api-version}'
+							    });
+							      
+							    FB.AppEvents.logPageView();   
+							      
+							  };
+							
+							  (function(d, s, id){
+							     var js, fjs = d.getElementsByTagName(s)[0];
+							     if (d.getElementById(id)) {return;}
+							     js = d.createElement(s); js.id = id;
+							     js.src = "https://connect.facebook.net/en_US/sdk.js";
+							     fjs.parentNode.insertBefore(js, fjs);
+							   }(document, 'script', 'facebook-jssdk'));
+							</script>
+							
+						</div>
+					
+						<div class="form-group">
+							<c:choose>
+								<c:when test="${sessionId != null}">
+								</c:when>
+									<c:otherwise>
+										<!-- 네이버 로그인 창으로 이동 -->
+										<div id="naver_id_login" style="text-align:center"><a href="${url}">
+											<img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a></div>
+									</c:otherwise>
+								</c:choose>
+
+						</div>
+					
+						<div class="form-group">
+							<label for="sub" class="col-sm-2 control-label">ID</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="id" id="id"
+									placeholder="Enter ID">
+							</div>
+						</div>
+						<label></label>
+						<div class="form-group">
+							<label for="sub" class="col-sm-2 control-label">PW</label>
+							<div class="col-sm-10">
+								<input type="password" class="form-control" name="pw" id="pw"
+									placeholder="Enter PassWord">
+							</div>
+						</div>
+						<label></label>
+					</div>
+				
+				<!--login footer -->
+				<div class="modal-footer">
+					<div class="col-sm-6 text-left">
+						<a href="#" class="">아이디 찾기</a> <a href="#" class="">비밀번호 찾기</a>
+					</div>
+					<div class="col-sm-6 text-right">
+						<button id="signT" type="button" class="btn btn-primary"
+							data-toggle="modal" data-target="#signUp">회원가입</button>
+						<button id="login" type="button" class="btn btn-default" onclick="login();" >로그인</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+	<!--Sign UP Modal 22222222222222222222222222-->
+	<div class="modal fade" id="signUp" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<!-- header -->
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">회원가입</h4>
+				</div>
+				<!-- sign up content -->
+				<form class="form-horizontal">
+					<div class="modal-body">
+					
+					
+						<div class="form-group">
+							<label for="sub" class="col-sm-2 control-label">ID</label>
+							<div class="col-sm-7">
+								<input type="text" class="form-control" name="id" id="joinId"
+									placeholder="Enter ID" onblur="idCheck();">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="sub" class="col-sm-2 control-label">PW</label>
+							<div class="col-sm-7">
+								<input type="password" class="form-control" name="pw" id="joinPw"
+									placeholder="Enter PassWord">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="sub" class="col-sm-2 control-label">PW 확인</label>
+							<div class="col-sm-7">
+								<input type="password" class="form-control" 
+									id="joinPwCheck" placeholder="Check PassWord" onblur="passwordCheck();" />
+							</div>
+						</div>
+					
+						<div class="form-group">
+							<label for="sub" class="col-sm-2 control-label">이름</label>
+							<div class="col-sm-7">
+								<input type="text" class="form-control" name="name" id="joinName"
+									placeholder="Enter Name">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="sub" class="col-sm-2 control-label">닉네임</label>
+							<div class="col-sm-7">
+								<input type="text" class="form-control" name="nickName" id="joinNickName"
+									placeholder="닉네임을 입력하세요">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="sub" class="col-sm-2 control-label">전화번호</label>
+							<div class="col-sm-7">
+								<input type="text" class="form-control" name="tel" id="joinTel"
+									placeholder="01012345678">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="sub" class="col-sm-2 control-label">성별</label>
+							<div class="col-sm-7">
+								남
+								<input type="radio" name="gender" class="joinGender" value="1">
+								여
+								<input type="radio" name="gender" class="joinGender" value="2">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="sub" class="col-sm-2 control-label">생년월일</label>
+							<div class="col-sm-7">
+								<input type="text" class="form-control" name="birth" id="joinBirth"
+									placeholder="19990101-1">
+							</div>
+						</div>
+						
+						
+						<div class="form-group">
+							<label for="sub" class="col-sm-2 control-label">Email</label>
+							<div class="col-sm-7">
+								<input type="email" class="form-control" name="email" id="joinEmail"
+									placeholder="example@naver.com">
+							</div>
+							<div class="col-sm-2">
+								<button class="btn btn-default">메일인증</button>
+							</div>
+						</div>
+					</div>
+				</form>
+				<!--sign up footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal"">Cancle</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="join();">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- 위에는 로그인 모달 -->
 	<div id="header">
 		<div class="container-fluid">
 			<div class="row">
@@ -160,10 +515,17 @@
 											</ul></li>
 									</ul>
 									<ul class="nav navbar-nav navbar-right">
-										<li><a class="edit" href="#" onclick="getAdd()">로그인</a></li>
+									<c:choose>
+										<c:when test="${empty sessionScope.id }">
+											<li><a id="login" class="edit" href="#" data-toggle="modal" data-target="#myModal">로그인</a></li>
+										</c:when>
+										<c:otherwise>
+											<li><a>${sessionScope.id }</a></li>
+											<li><a class="edit" onclick="logout();">로그아웃</a></li>
+										</c:otherwise>
+									</c:choose>
 									</ul>
-	
-	
+		
 								</div>
 								<!-- /.navbar-collapse -->
 							</div>

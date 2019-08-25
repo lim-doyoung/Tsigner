@@ -17,9 +17,7 @@
 <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
+	$(document).ready(function() {
 						var addr = document.getElementById('downFile').value;
 						pageList();
 						$('#submitbtn').click(function() {
@@ -29,24 +27,22 @@
 						});
 						$('#editBtn').hide();
 
-						$('#keyword')
-								.keyup(
-										function() {
-											var k = $(this).val();
-											if(k!=null){
-											$("#communityBbsTable > tbody > tr")
-													.hide();
-											}
-											var temp = $("#communityBbsTable > tbody > tr > td:nth-child(5n+2):contains('"
-													+ k + "')");
-											$(temp).parent().show();
-										});
+						$('#keyword').keyup(function() {
+							var k = $(this).val();
+							if (k != null) {
+							 $("#communityBbsTable > tbody > tr").hide();
+							}
+							var temp = $("#communityBbsTable > tbody > tr > td:nth-child(5n+2):contains('"
+								+ k + "')");
+							$(temp).parent().show();
+						});
 					});
 
 	function pageList() {
 		$('#bbsTable').show();
 		$('.bbsInsert').hide();
 		$('.bbsDetail').hide();
+
 	};
 
 	function pageInsert() {
@@ -72,21 +68,46 @@
 						'<p class="help-block">Example block-level help text here.</p>');
 	}
 
-	//상세&수정&삭제
-	$(document).on('click', '#bbsTable table tr td>a', function(e) {
-		e.preventDefault();
-		$('.bbsDetail').show();
-		$('#bbsTable').hide();
-		$.getJSON('json/obj', $(this).attr('href'), function(data) {
-			$('.bbsDetail form input').eq(0).val(data.cmnt_title);
-			$('.bbsDetail form input').eq(1).val(data.cmnt_writer_id);
-			$('.bbsDetail form textarea').val(data.cmnt_content);
-			$('#downFile').val(data.cmnt_filename);
-			$('#keyVal').val(data.cmnt_seq);
-			console.log(data.cmnt_filename);
-			$('#detailPage').append('<a href="upload/'+data.cmnt_filename+'" id="del" type="button" class="btn btn-default" download>download</a>');
+	$(document).on('click','.pagination li',function(e){
+		var c = $('.pagination li').eq($(this).index()).text();
+		var idx=c*5;
+		alert(idx);
+		$('#bbsTable tbody>tr').html('');
+		$.getJSON('json/list', function(data) {
+			var arr=data;
+			console.log(data);
+			for(var i=((c-1)*5); i<=c*5; i++){
+				$('<tr></tr>').appendTo('#bbsTable tbody').append('<td><a href="idx='+arr[i].cmnt_seq+'">'+arr[i].cmnt_seq+'</a></td>')
+											.append('<td><a href="idx='+arr[i].num+'">'+arr[i].cmnt_title+'</a></td>')
+											.append('<td><a href="idx='+arr[i].num+'">'+arr[i].cmnt_writer_id+'</a></td>')
+											.append('<td><a href="idx='+arr[i].num+'">'+arr[i].modi_date+'</a></td>')
+											.append('<td><a href="idx='+arr[i].num+'">'+arr[i].cmnt_hits+'</a></td>')
+			}
+/* 			$('#content').html(eles); */
 		});
 	});
+
+	//상세&수정&삭제
+	$(document).on('click','#bbsTable table tr td>a',function(e) {
+						e.preventDefault();
+						$('.bbsDetail').show();
+						$('#bbsTable').hide();
+						$.getJSON('json/obj',$(this).attr('href'),function(data) {
+											$('.bbsDetail form input').eq(0)
+													.val(data.cmnt_title);
+											$('.bbsDetail form input').eq(1)
+													.val(data.cmnt_writer_id);
+											$('.bbsDetail form textarea').val(
+													data.cmnt_content);
+											$('#downFile').val(
+													data.cmnt_filename);
+											$('#keyVal').val(data.cmnt_seq);
+											console.log(data.cmnt_filename);
+											$('#detailPage')
+													.append(
+															'<a href="upload/'+data.cmnt_filename+'" id="del" type="button" class="btn btn-default" download>download</a>');
+										});
+					});
 
 	function deleteOne() {
 		location.href = 'community_bbs/delete/'
@@ -95,9 +116,9 @@
 
 	function download() {
 		location.href = 'community_bbs/download/'
-			+ document.getElementById('downFile').value;
-/* 		var addr = document.getElementById('downFile').value; */
-/* 		$('#upload').append('<a href="upload/'+addr+'" download>'+addr+'</a>'); */
+				+ document.getElementById('downFile').value;
+		/* 		var addr = document.getElementById('downFile').value; */
+		/* 		$('#upload').append('<a href="upload/'+addr+'" download>'+addr+'</a>'); */
 	};
 </script>
 
@@ -197,55 +218,49 @@
 				</div>
 				<button id="submitbtn" class="btn btn-default btn-sm">글쓰기</button>
 				<div class="jumbotron1">
-					<div id="bbsTable">
-						<table id="communityBbsTable" class="table table-hover"
-							style="width: 80%; margin: auto;">
-							<thead>
-							<tr>
-								<td width="5%">#</td>
-								<td align="left">제목</td>
-								<td width="10%">작성자</td>
-								<td width="10%">작성일</td>
-								<td width="10%">조회수</td>
-							</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${alist }" var="bean">
+					<form action="">
+						<div id="bbsTable">
+							<table id="communityBbsTable" class="table table-hover"
+								style="width: 80%; margin: auto;">
+								<thead>
 									<tr>
-										<td><a href="idx=${bean.cmnt_seq }">${bean.cmnt_seq }</a></td>
-										<td><a href="idx=${bean.cmnt_seq }">${bean.cmnt_title }</a></td>
-										<td>${bean.cmnt_writer_id }</td>
-										<!-- 문자열 자르기 -->
-										<c:set var="TextValue" value="${bean.modi_date }" />
-										<td>${fn:substring(TextValue,0,10) }</td>
-										<td>${bean.cmnt_hits }</td>
+										<td width="5%">#</td>
+										<td align="left">제목</td>
+										<td width="10%">작성자</td>
+										<td width="10%">작성일</td>
+										<td width="10%">조회수</td>
 									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
+								</thead>
 
-						<div id="pageNum" style="text-align: center;">
-							<nav>
-								<ul class="pagination">
+								<tbody>
+									<c:forEach items="${alist }" var="bean" begin="0" end="10">
+										<tr>
+											<td><a href="idx=${bean.cmnt_seq }">${bean.cmnt_seq }</a></td>
+											<td><a href="idx=${bean.cmnt_seq }">${bean.cmnt_title }</a></td>
+											<td>${bean.cmnt_writer_id }</td>
+											<!-- 문자열 자르기 -->
+											<c:set var="TextValue" value="${bean.modi_date }" />
+											<td>${fn:substring(TextValue,0,10) }</td>
+											<td>${bean.cmnt_hits }</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
 
-									<li><a href="bookingRoom?idx=" aria-label="Previous">
-											<span aria-hidden="true">&laquo;</span>
-									</a></li>
-									<%
-										for (int i = 0; i < 5; i++) {
-									%>
-									<li><a href="bookingRoom?idx=<%=i + 1%>"><%=i + 1%></a></li>
-									<%
-										}
-									%>
-									<li><a href="bookingRoom?idx=" aria-label="Next"> <span
-											aria-hidden="true">&raquo;</span>
-									</a></li>
-								</ul>
-							</nav>
+
+							<!-- paging -->
+
+							<ul class="pagination">
+								<li><a><<</a></li>
+								<li><a><</a></li>
+								<li class="goPage" data-page="1"><a>1</a></li>
+								<li class="goPage" data-page="2"><a>2</a></li>
+								<li class="goPage" data-page="3"><a>3</a></li>
+								<li><a>></a></li>
+								<li class="goLastPage"><a>>></a></li>
+							</ul>
 						</div>
-						<a href="imgs/a1.jpg" download>download</a>
-					</div>
+					</form>
 
 					<!-- insert form -->
 					<div class="bbsInsert">
@@ -261,7 +276,8 @@
 							<div class="form-group">
 								<label for="name">Name</label> <input type="text"
 									class="form-control" id="exampleInputPassword1"
-									placeholder="write name" name="cmnt_writer_id">
+									placeholder="write name" name="cmnt_writer_id"
+									value="${sessionScope.id }">
 							</div>
 							<div class="form-group">
 								<label for="content">Content</label>

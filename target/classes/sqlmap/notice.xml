@@ -8,13 +8,29 @@
   </select>
   
   <insert id="insertOne" parameterType="com.bit.tsigner.model.entity.NoticeVo">
-  	INSERT INTO NOTICE (noti_title,noti_content,noti_writer_id,regi_date,modi_date) VALUES(#{noti_title},#{noti_content}, #{noti_writer_id}, now(),now())
+  	INSERT INTO NOTICE (noti_title,noti_content,noti_writer_id,regi_date,modi_date,noti_file_path1) VALUES(#{noti_title},#{noti_content}, #{noti_writer_id}, now(),now(),#{noti_file_path1})
   </insert>
   
   <select id="selectOne" parameterType="java.lang.Integer" resultType="com.bit.tsigner.model.entity.NoticeVo">
   	SELECT * FROM NOTICE WHERE NOTI_SEQ=#{idx}
   </select>
   
+  <update id="updateOne" parameterType="map">
+  	UPDATE NOTICE SET NOTI_TITLE=#{sub}, NOTI_CONTENT=#{content} WHERE NOTI_SEQ=#{idx}
+  </update>
   
+  <delete id="deleteOne" parameterType="int">
+  	DELETE FROM NOTICE WHERE NOTI_SEQ=#{idx}
+  </delete>
+  
+  <!-- 게시글 조회수 증가 -->
+  <update id="increaseCnt" parameterType="int">
+  	UPDATE NOTICE SET NOTI_HITS = NOTI_HITS+1 WHERE NOTI_SEQ=#{idx}
+  </update>
+  
+  <!-- 파일 경로 저장 
+  <insert id="insertFilePath" parameterType="String">
+  	INSERT INTO NOTICE (noti_file_path1) VALUES(#{upload_files})
+  </insert>-->
   
 </mapper>

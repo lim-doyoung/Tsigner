@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -25,10 +26,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.tsigner.model.entity.CommunityVo;
+import com.bit.tsigner.model.entity.Criteria;
+import com.bit.tsigner.model.entity.PagingTest;
 import com.bit.tsigner.service.CommunityService;
 
 @Controller
@@ -51,10 +55,29 @@ public class CommunityController {
 	}
 	
 	@RequestMapping(value = "/community_bbs")
-	public String communityBbs(Model model) throws SQLException {
+//	public String communityBbs(Model model,@RequestParam("idx") String page) throws SQLException {
+	public String communityBbs(Model model,HttpServletRequest res) throws SQLException {
+		int page=1;
+		if(res.getParameter("idx")==null) {
+			System.out.println("pagenum is null");
+		}else {
+			page=Integer.parseInt((res.getParameter("idx")));
+		}
+		Criteria cr=new Criteria();
+		cr.setPage(page);
+		System.out.println("page:"+page);
+		model.addAttribute(cr);
 		communityService.list(model);
+		System.out.println("BbsController:"+model);
 		return "community/bbs";
 	}
+	
+	@GetMapping("/json/list")
+	public @ResponseBody List getList() throws SQLException {
+		
+		return communityService.list();
+	}
+	
 	
 	@RequestMapping(value = "/community_bbs/add",method = RequestMethod.POST)
 	public String communityBbsAdd(@ModelAttribute CommunityVo bean,@RequestParam("file2")MultipartFile CMNT_FILENAME) throws SQLException {

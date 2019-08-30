@@ -18,6 +18,8 @@
 	<resources mapping="/imgs/**" location="/imgs/" />
 	<resources mapping="/css/**" location="/css/" />
 	<resources mapping="/video/**" location="/video/" />
+	<resources mapping="/upload/**" location="/upload/" />
+	<resources mapping="/community_togetherDetail/**" location="//" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -29,6 +31,18 @@
 	
 	<!-- NaverLoginBO Class에 대한 Bean설정 추가 -->
 	<beans:bean id="naverLoginBo" class="com.bit.naver.NaverLoginBO"></beans:bean>
+	<!-- fileupload -->
+	<beans:bean id="multipartResolver"
+	class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="5242880" />
+	</beans:bean>
 	
+	<beans:bean id="mail" class="com.bit.tsigner.Mail">
+		<beans:property name="host" value="smtp.naver.com"></beans:property>
+		<beans:property name="port" value="465"></beans:property> 
+		<beans:property name="user" value="ililil9482"></beans:property>
+		<beans:property name="tail" value="@naver.com"></beans:property>
+		<beans:property name="password" value="jun708226ty!"></beans:property>
+	</beans:bean>
 	
 </beans:beans>

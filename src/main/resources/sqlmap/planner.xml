@@ -8,5 +8,31 @@
     SELECT * FROM LOCATION_DTL WHERE AREA_CODE=#{val} ORDER BY CAST(IFNULL(SIGUNGU_CODE,"0") AS UNSIGNED) ASC
   </select>
 
-  
+	<insert id="insertMgt" parameterType="hashmap">
+		INSERT INTO PLAN_MGT(PLAN_CODE,USER_ID,TRV_FROM_DATE,TRV_TO_DATE,TOT_DIST,TOT_AMT,REGI_DATE,MODI_DATE) 
+		VALUES(#{plan_code},#{user_id},#{trv_from_date},#{trv_to_date},#{tot_dist},#{tot_amt},NOW(),NOW())
+	</insert>
+	
+	<update id="updateMgt" parameterType="hashmap">
+		UPDATE PLAN_MGT SET TRV_FROM_DATE=#{trv_from_date},TRV_TO_DATE=#{trv_to_date},TOT_DIST=#{tot_dist},TOT_AMT=#{tot_amt},MODI_DATE=NOW() WHERE PLAN_CODE=#{plan_code}
+	</update>
+	
+	<insert id="insertMst" parameterType="hashmap">
+		INSERT INTO PLAN_DAY_MST(PLAN_CODE,TRV_DEG,TRV_DATE,DAY_DIST,DAY_AMT,DAY_ROOM_CHG,DAY_FOOD_EXP,DAY_TRAN_EXP,REGI_DATE,MODI_DATE)
+		VALUES(#{plan_code},#{trv_deg},#{trv_date},#{day_dist},#{day_amt},#{day_room_chg},#{day_food_exp},#{day_tran_exp},NOW(),NOW())
+	</insert>
+	
+	<insert id="insertDtl" parameterType="hashmap">
+		INSERT INTO PLAN_DAY_DTL(PLAN_CODE,TRV_DEG,LOC_SEQ,LOC_NAME,LOC_TYPE,LOC_ADDR,LOC_POST_CODE,CONTENT_ID,LOC_TEL,OVERVIEW,POSITION_X,POSITION_Y,LOC_IMG_URL,REGI_DATE,MODI_DATE)
+		VALUES(#{plan_code},#{trv_deg},#{loc_seq},#{loc_name},#{loc_type},#{loc_addr},#{loc_post_code},#{content_id},#{loc_tel},#{overview},#{position_x},#{position_y},#{loc_img_url},NOW(),NOW())
+	</insert>	
+	
+	<select id="createCode" resultType="string">
+		SELECT IFNULL(CONCAT('PLAN',DATE_FORMAT(NOW(),'%Y%m'),LPAD(MAX(right(PLAN_CODE,8))+1,8,0)),CONCAT('PLAN',DATE_FORMAT(NOW(),'%Y%m'),'00000001')) FROM PLAN_MGT
+	</select>
+	
+	<delete id="deleteData" parameterType="string">
+			DELETE FROM PLAN_DAY_DTL WHERE PLAN_CODE=#{val};
+			DELETE FROM PLAN_DAY_MST WHERE PLAN_CODE=#{val};
+	</delete>
 </mapper>

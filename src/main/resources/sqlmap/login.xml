@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bit.tsigner.model.LoginDao">
+  
+  <select id="login" parameterType="map" resultType="com.bit.tsigner.model.entity.LoginVo">
+  	SELECT * FROM USERS WHERE USER_ID=#{id} AND PASSWORD=#{pw};
+  </select>
+  
+  <insert id="join" parameterType="map">
+  	INSERT USERS (USER_ID, PASSWORD, USER_NAME, USER_NICK_NAME,USER_EMAIL,USER_TEL,USER_BIRTH,USER_RESI_NUM,USER_MEM_LEV,CREATE_DATE) VALUES (#{id},#{pw},#{userName},#{nickName},#{email},#{tel},#{birth},#{gender},0,now());
+  </insert>
+  
+  <insert id="join_level_mgt" parameterType="map">
+  	INSERT USER_LEVEL_MGT (USER_ID,POINT,CMNT_REGI_CNT,REPLY_CNT) VALUES (#{id},0,0,0);
+  </insert>
+  
+  <select id="idCheck" parameterType="String" resultType="String">
+  	SELECT USER_ID FROM USERS WHERE USER_ID=#{id};
+  </select>
+  
+  <select id="emailCheck" parameterType="String" resultType="String">
+  	SELECT USER_EMAIL FROM USERS WHERE USER_EMAIL=#{email};
+  </select>
+  
+  <select id="searchId" parameterType="map" resultType="String">
+  	SELECT USER_ID FROM USERS WHERE USER_NAME=#{name} AND USER_EMAIL=#{email}
+  </select>
+  
+  <select id="searchPw" parameterType="map" resultType="Boolean">
+  	SELECT PASSWORD FROM USERS WHERE USER_ID=#{id} AND USER_EMAIL=#{email}
+  </select>
+  
+  <update id="editPw" parameterType="map">
+	UPDATE USERS SET PASSWORD=#{editPw},MODI_DATE=now() WHERE USER_ID=#{id} AND USER_EMAIL=#{email}
+  </update>
+  
+  <insert id="easyJoin" parameterType="map">
+  	INSERT USERS (USER_ID, PASSWORD, USER_NAME, USER_NICK_NAME,USER_EMAIL,SNS_TYPE,SNS_ID,SNS_CONN_DATE,USER_MEM_LEV,CREATE_DATE) VALUES (#{id},#{pw},#{userName},#{nickName},#{email},#{type},#{snsId},now(),0,now());
+  </insert>
+  
+   <select id="getUser" parameterType="String" resultType="com.bit.tsigner.model.entity.LoginVo">
+  	SELECT * FROM USERS WHERE USER_ID=#{id}
+  </select>
+  
+  <update id="editUser" parameterType="map">
+  	UPDATE USERS SET USER_NAME=#{name},USER_NICK_NAME=#{nick},USER_TEL=#{tel},USER_BIRTH=#{birth} WHERE USER_ID=#{id};
+  </update>
+  
+</mapper>

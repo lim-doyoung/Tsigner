@@ -16,12 +16,12 @@
 								content.</p>
 						</div>
 						<div class="col-md-3 mb-md-0 mb-3">
-							<h3 class="text-uppercase">Access</h3>
+							<h3 class="text-uppercase">고객센터</h3>
 							<ul class="list-unstyled">
-								<li><a href="#!">Link 1</a></li>
-								<li><a href="#!">Link 2</a></li>
-								<li><a href="#!">Link 3</a></li>
-								<li><a href="#!">Link 4</a></li>
+								<li><a href="#!">FAQ</a></li>
+								<li><a href="#!">문의하기</a></li>
+								<li><a href="#!">이용약관</a></li>
+								<li><a href="#!">개인정보 처리방침</a></li>
 							</ul>
 						</div>
 						<div class="col-md-3 mb-md-0 mb-3">

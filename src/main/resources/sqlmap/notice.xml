@@ -3,18 +3,154 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bit.tsigner.model.NoticeDao">
-  <select id="selectAll" resultType="com.bit.tsigner.model.entity.NoticeVo">
-    SELECT * FROM NOTICE
-  </select>
+  <select id="selectAll" resultType="com.bit.tsigner.model.entity.NoticeVo"  parameterType="map">
+  <!-- 목록 조회 및 페이징 전체 쿼리 -->
+        set @rownum :=0;
+        select 
+           @rownum :=@rownum + 1 as rn,
+           noti_seq,
+                  noti_title,
+                      regi_date,
+                      noti_hits,
+                      noti_writer_id
+                      from notice
+                    
+              <!-- 검색조건 -->
+   
+      <include refid="search"></include>
+      
+      					order by noti_seq desc
+              
+                      limit #{start}, 10
+                                  
+ </select>
+  
+   <!--  게시글 레코드 갯수 -->
+   <select id="countArticle" resultType="int" parameterType="map">
+      SELECT COUNT(*) 
+      FROM notice
+      <!-- WHERE절을 include 태그로 삽입 -->
+      <include refid="search"></include>
+   </select>
+   
+   <!-- sql code 조각 -->
+   <!-- 반복되는 sql의 일부를 sql태그를 이용하여 따로 빼둘수 있다. -->
+   <!-- 검색 조건 sql -->
+   <sql id="search">
+      <choose>
+         <!-- 검색옵션이 전체 검색일 경우 -->
+         <when test="searchOption == 'all'">
+            WHERE 
+            noti_writer_id like CONCAT('%',#{keyword},'%')
+            OR 
+               noti_content like CONCAT('%',#{keyword},'%')
+            OR 
+               noti_title like CONCAT('%',#{keyword},'%')
+         </when>
+         <!-- 전체 검색이 아닐 경우 -->
+         <otherwise>
+            WHERE ${searchOption} like CONCAT('%',#{keyword},'%')
+         </otherwise>
+      </choose>
+   </sql>
+   
+
   
   <insert id="insertOne" parameterType="com.bit.tsigner.model.entity.NoticeVo">
-  	INSERT INTO NOTICE (noti_title,noti_content,noti_writer_id,regi_date,modi_date) VALUES(#{noti_title},#{noti_content}, #{noti_writer_id}, now(),now())
+     INSERT INTO NOTICE (noti_title,noti_content,noti_writer_id,regi_date,modi_date,noti_file_path1) VALUES(#{noti_title},#{noti_content}, #{noti_writer_id}, now(),now(),#{noti_file_path1})
   </insert>
   
   <select id="selectOne" parameterType="java.lang.Integer" resultType="com.bit.tsigner.model.entity.NoticeVo">
-  	SELECT * FROM NOTICE WHERE NOTI_SEQ=#{idx}
+     SELECT * FROM NOTICE WHERE NOTI_SEQ=#{idx}
   </select>
   
+  <update id="updateOne" parameterType="map">
+     UPDATE NOTICE SET NOTI_TITLE=#{sub}, NOTI_CONTENT=#{content} WHERE NOTI_SEQ=#{idx}
+  </update>
   
+  <delete id="deleteOne" parameterType="int">
+     DELETE FROM NOTICE WHERE NOTI_SEQ=#{idx}
+  </delete>
+  
+  <!-- 게시글 조회수 증가 -->
+  <update id="increaseCnt" parameterType="int">
+     UPDATE NOTICE SET NOTI_HITS = NOTI_HITS+1 WHERE NOTI_SEQ=#{idx}
+  </update>
+  
+  
+  
+  <!-- event 쿼리 -->
+  
+   <select id="eventSelectAll" resultType="com.bit.tsigner.model.entity.EventVo"  parameterType="map">
+  <!-- 목록 조회 및 페이징 전체 쿼리 -->
+        set @rownum :=0;
+        select 
+           @rownum :=@rownum + 1 as rn,
+           			event_seq,
+                  	event_title,
+                      regi_date,
+                      event_hits,
+                      event_writer_id
+                      from event
+                    
+              <!-- 검색조건 -->
+   
+      <include refid="eventSearch"></include>
+      
+      					order by event_seq desc
+              
+                      limit #{start}, 10
+                
+ </select>
+  
+   <!--  게시글 레코드 갯수 -->
+   <select id="eventCountArticle" resultType="int" parameterType="map">
+      SELECT COUNT(*) 
+      FROM event
+      <!-- WHERE절을 include 태그로 삽입 -->
+      <include refid="eventSearch"></include>
+   </select>
+   
+   <!-- sql code 조각 -->
+   <!-- 반복되는 sql의 일부를 sql태그를 이용하여 따로 빼둘수 있다. -->
+   <!-- 검색 조건 sql -->
+   <sql id="eventSearch">
+      <choose>
+         <!-- 검색옵션이 전체 검색일 경우 -->
+         <when test="searchOption == 'all'">
+            WHERE 
+            event_writer_id like CONCAT('%',#{keyword},'%')
+            OR 
+               event_content like CONCAT('%',#{keyword},'%')
+            OR 
+               event_title like CONCAT('%',#{keyword},'%')
+         </when>
+         <!-- 전체 검색이 아닐 경우 -->
+         <otherwise>
+            WHERE ${searchOption} like CONCAT('%',#{keyword},'%')
+         </otherwise>
+      </choose>
+   </sql>
+  
+   <insert id="eventInsertOne" parameterType="com.bit.tsigner.model.entity.EventVo">
+     INSERT INTO event (event_title, event_content, event_writer_id,regi_date,modi_date,event_file_path1) VALUES(#{event_title},#{event_content}, #{event_writer_id}, now(),now(),#{event_file_path1})
+  </insert>
+  
+  <select id="eventSelectOne" parameterType="java.lang.Integer" resultType="com.bit.tsigner.model.entity.EventVo">
+     SELECT * FROM EVENT WHERE EVENT_SEQ=#{idx}
+  </select>
+  
+  <!-- 게시글 조회수 증가 -->
+  <update id="eventIncreaseCnt" parameterType="int">
+     UPDATE event SET event_HITS = event_HITS+1 WHERE event_SEQ=#{idx}
+  </update>
+  
+  <update id="eventUpdateOne" parameterType="map">
+     UPDATE event SET event_TITLE=#{sub}, event_CONTENT=#{content} WHERE event_SEQ=#{idx}
+  </update>
+  
+  <delete id="eventDeleteOne" parameterType="int">
+     DELETE FROM event WHERE event_SEQ=#{idx}
+  </delete>
   
 </mapper>
